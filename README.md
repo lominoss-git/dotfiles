@@ -16,3 +16,5 @@ A collection of config files.
 # Cheat Sheet:
 - **SUPER + RETURN** : Run Rofi
 - **SUPER + SHIFT + L** : Logout
+- **SUPER + ARROWS** : Change Focus
+- **SUPER + SHIFT + ARROWS** : Swap Windows
