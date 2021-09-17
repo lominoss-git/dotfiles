@@ -14,6 +14,5 @@ A collection of config files.
 ![Micro](https://user-images.githubusercontent.com/79030093/133771258-0533a358-e1d6-494c-b0ed-3df29d093d92.png)
 
 # Cheat Sheet:
-**SUPER + RETURN** : Run Rofi.
-
-**SUPER + SHIFT + L** : Logout.
+> **SUPER + RETURN** : Run Rofi
+> **SUPER + SHIFT + L** : Logout
