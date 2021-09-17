@@ -15,4 +15,5 @@ A collection of config files.
 
 # Cheat Sheet:
 **SUPER + RETURN** : Run Rofi.
+
 **SUPER + SHIFT + L** : Logout.
