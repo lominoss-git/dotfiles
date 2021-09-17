@@ -7,10 +7,10 @@ A collection of config files.
 # Run Launcher: [Rofi](https://github.com/davatorium/rofi)
 ![Rofi](https://user-images.githubusercontent.com/79030093/133771213-f1d485e9-d0a7-46f7-9558-f92e10b3724d.png)
 
-# Termite:
+# Terminal: [Termite](https://github.com/thestinger/termite)
 ![Termite](https://user-images.githubusercontent.com/79030093/133771245-78d82811-4ff0-4844-a283-7fad126a198a.png)
 
-# Micro:
+# Terminal Code Editor: [Micro](https://github.com/zyedidia/micro)
 ![Micro](https://user-images.githubusercontent.com/79030093/133771258-0533a358-e1d6-494c-b0ed-3df29d093d92.png)
 
 # Cheat Sheet:
