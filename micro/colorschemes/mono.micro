@@ -1,0 +1,28 @@
+color-link comment "#9E9E9E"
+color-link constant "#2A2A2A"
+color-link identifier "#2A2A2A"
+color-link statement "2A2A2A"
+color-link symbol "#9E9E9E" 
+color-link preproc "2A2A2A"
+color-link type "2A2A2A"
+color-link special "2A2A2A"
+color-link ignore "default"
+color-link error ",2A2A2A"
+color-link todo ",2A2A2A"
+color-link indent-char "2A2A2A"
+color-link line-number "2A2A2A"
+color-link current-line-number "#9E9E9E"
+color-link diff-added "2A2A2A"
+color-link diff-modified "2A2A2A"
+color-link diff-deleted "2A2A2A"
+color-link gutter-error ",2A2A2A"
+color-link gutter-warning "2A2A2A"
+#Cursor line causes readability issues. Disabled for now.
+#color-link cursor-line "white,black"
+color-link color-column "#FFFFFF"
+#No extended types. (bool in C)
+color-link type.extended "default"
+#No bracket highlighting.
+color-link symbol.brackets "default"
+#Color shebangs the comment color
+color-link preproc.shebang "comment"
