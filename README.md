@@ -1,7 +1,7 @@
 # dotfiles
 A collection of config files.
 
-# Desktop:
+# Desktop Environment/Window Manager:
 ![Desktop](https://user-images.githubusercontent.com/79030093/133771141-50f54860-cc1c-410d-8ace-2131b364dd30.png)
 
 # Rofi:
