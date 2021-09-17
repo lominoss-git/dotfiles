@@ -1,7 +1,7 @@
 # dotfiles
 A collection of config files.
 
-# Desktop Environment / Window Manager: [Qtile](https://github.com/qtile/qtile).
+# Desktop Environment / Window Manager: [Qtile](https://github.com/qtile/qtile)
 ![Desktop](https://user-images.githubusercontent.com/79030093/133771141-50f54860-cc1c-410d-8ace-2131b364dd30.png)
 
 # Rofi:
