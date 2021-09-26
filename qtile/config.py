@@ -1,232 +1,263 @@
-###################################################
-##################### My qTile ####################
-###################################################
+#  _                 _                     
+# | | ___  _ __ ___ (_)_ __   ___  ___ ___ 
+# | |/ _ \| '_ ` _ \| | '_ \ / _ \/ __/ __|
+# | | (_) | | | | | | | | | | (_) \__ \__ \
+# |_|\___/|_| |_| |_|_|_| |_|\___/|___/___/
+#
 
-# Importing python/qtile libraries:
+# Imports:
+from typing import List
+from libqtile import qtile
+from libqtile import bar, layout, widget
+from libqtile.config import Click, Drag, Group, Key, EzKey, Match, Screen
+from libqtile.lazy import lazy
 
-import os
-import re
-import socket
-import subprocess
-import os.path
-from libqtile.config import Key, Screen, Group, Match, Drag, Click
-from libqtile.command import lazy
-from libqtile import layout, bar, widget, hook
-from libqtile.widget import Spacer, base
-from typing import List  # noqa: F401
+# Preffered applications:
+terminal = "termite"
+browser = "min"
+file_explorer = terminal + " -e ranger"
+spotify = "spotify"
 
-# Set Default modkey:
 mod = "mod4"
 
-bar_size = 48
+# Keybinding modifiers:
+EzKey.modifier_keys = {
+    "Super": "mod4",
+    "Alt": "mod1",
+    "Shift": "shift",
+    "Control": "control"
+}
 
-# Panel Bg, Date & Time Fg, Volume Fg, RAM Fg, Separator Fg, Tasks Fg.
-colors_mono = ["FFFFFF", "2A2A2A", "2A2A2A", "2A2A2A", "9E9E9E", "2A2A2A"]
-
-my_term = "termite"
-my_browser = "min"
-
-inner_gaps = 25
-seps = " λ "
-
-def init_keys():
-    keys = [ 
-        # Quit Session:
-        Key([mod, "shift"], "l", lazy.spawn("kill -9 -1")),    
-        # Run Launcher:
-        Key([mod], "Return", lazy.spawn("rofi -show")),
-           
-        # Change Focus:R
-        Key([mod], "Left", lazy.layout.left()),
-        Key([mod], "Right", lazy.layout.right()),
-        Key([mod], "Down", lazy.layout.down()),
-        Key([mod], "Up", lazy.layout.up()),
-        
-        # Swap places:
-        Key([mod, "shift"], "Left", lazy.layout.swap_left()),
-        Key([mod, "shift"], "Right", lazy.layout.swap_right()),
-        Key([mod, "shift"], "Down", lazy.layout.shuffle_down()),
-        Key([mod, "shift"], "Up", lazy.layout.shuffle_up()),
-        Key([mod], "w", lazy.to_screen(0)),
-        Key([mod], "y", lazy.to_screen(1)),
-        Key([mod, "shift"], "w", lazy.window.to_screen(0)),
-        Key([mod, "shift"], "y", lazy.window.to_screen(1)),
-        
-        # Resize keys:
-        Key([mod], "i", lazy.layout.grow()),
-        Key([mod], "m", lazy.layout.shrink()),
-        Key([mod], "n", lazy.layout.normalize()),
-        Key([mod], "o", lazy.layout.maximize()),
-        # Move the master pane Left/Right:
-        Key([mod, "shift"], "space", lazy.layout.flip()),
-    
-        # Change Layout:
-        Key([mod], "Tab", lazy.next_layout()),
-        # Close focused window:
-        Key([mod], "q", lazy.window.kill()),
-    
-        # Restart qtile in place:
-        Key([mod], "r", lazy.restart()),
-    
-        # Applications/Scripts Shortcuts:
-        Key([mod], "t", lazy.spawn(my_term)),
-        Key([mod], "b", lazy.spawn(my_browser)),
-        Key([mod], "f", lazy.spawn("thunar")),
-        Key([mod], "s", lazy.spawn("spotify")),
-        
-        # Volume control:
-        Key([mod], "F7", lazy.spawn("amixer -c 0 -q set Master 1dB-")),
-        Key([mod], "F8", lazy.spawn("amixer -c 0 -q set Master 1dB+")),
-        ]
-    return keys
-
-keys = init_keys()
-
-groups = [
-    Group(
-        "1",
-        label="I"
+# Keybindings:
+keys = [
+    # Switch focus:
+    EzKey(
+        "Super-<Tab>", lazy.layout.next(),
+        desc = "Move window focus to the next window"
     ),
-    Group(
-        "2",
-        #matches=[Match(wm_class=["firefox"])],
-        label="II"
+    EzKey(
+        "Super-Shift-<Tab>", lazy.layout.previous(),
+        desc = "Move window focus to the previous window"
     ),
-    Group(
-        "3",
-        #matches=[Match(wm_class=["Emacs"])],
-        label="III"
-    ),
-    Group(
-        "4",
-        #matches=[Match(wm_class=["libreoffice"])],
-        label="IV"
-    ),
-    Group(
-        "5",
-        #matches=[Match(wm_class=["Thunderbird"])],
-        label="V"
-    ),
-    Group(
-        "6",
-        #matches=[Match(wm_class=["code-oss"])],
-        label="VI"
-    ),
-    Group(
-        "7",
-        label="VII"
-    ),
-    ]
 
-for i in groups:
-    keys.extend([
-        # mod1 + letter of group = switch to group
-        Key([mod], i.name, lazy.group[i.name].toscreen()),
+    # Move windows:
+    EzKey(
+        "Super-Shift-<Left>", lazy.layout.shuffle_left(),
+        desc = "Move window to the left"
+    ),
+    EzKey(
+        "Super-Shift-<Right>", lazy.layout.shuffle_right(),
+        desc = "Move window to the right"
+    ),
+    EzKey(
+        "Super-Shift-<Down>", lazy.layout.shuffle_down(),
+        desc = "Move window down"
+    ),
+    EzKey(
+        "Super-Shift-<Up>", lazy.layout.shuffle_up(), 
+        desc = "Move window up"
+    ),
+    EzKey(
+        "Super-<space>", lazy.layout.flip(), 
+        desc = "Flip window stacks"
+    ),
 
-        # mod1 + shift + letter of group = switch to & move focused window to group
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
-    ])
+    # Resize windows:
+    EzKey(
+        "Super-<comma>", lazy.layout.grow(),
+        desc = "Grow window"
+    ),
+    EzKey(
+        "Super-<period>", lazy.layout.shrink(),
+        desc = "Shrink window"
+    ),
+    EzKey(
+        "Super-n", lazy.layout.normalize(), 
+        desc = "Reset all window sizes"
+    ),
 
-layouts = [
-    layout.MonadTall(
-	border_normal = colors_mono[1],
-	border_focus = colors_mono[0],
-        border_width = 1,
-        margin = inner_gaps,
+    # Launch applications:
+    EzKey(
+        "Super-t", lazy.spawn(terminal), 
+        desc = "Launch terminal"
+    ),
+    EzKey(
+        "Super-b", lazy.spawn(browser), 
+        desc = "Launch browser"
+    ),
+    EzKey(
+        "Super-f", lazy.spawn(file_explorer), 
+        desc = "Launch file explorer"
+    ),
+    EzKey(
+        "Super-s", lazy.spawn(spotify), 
+        desc = "Launch music player"
+    ),
+
+    # Volume controls:
+    EzKey(
+        "Super-<F5>", lazy.spawn("amixer sset Master toggle"), 
+        desc = "Toggle mute"
+    ),
+    EzKey(
+        "Super-<F7>", lazy.spawn("amixer -c 0 -q set Master 1dB-"), 
+        desc = "Lower volume"
+    ),
+    EzKey(
+        "Super-<F8>", lazy.spawn("amixer -c 0 -q set Master 1dB+"), 
+        desc = "Raise volume"
+    ),
+
+    # Spotify controls:
+    EzKey(
+        "Super-<F11>", lazy.spawn("spotifycli --playpause"), 
+        desc = "Toggle pause"
+    ),
+    EzKey(
+        "Super-<F10>", lazy.spawn("spotifycli --prev"), 
+        desc = "Play previous track"
+    ),
+    EzKey(
+        "Super-<F12>", lazy.spawn("spotifycli --next"), 
+        desc = "Play next track"
+    ),
+
+    # Control Qtile:
+    EzKey(
+        "Super-Control-<Tab>", lazy.next_layout(), 
+        desc = "Toggle between layouts"
+    ),
+    EzKey(
+        "Super-q", lazy.window.kill(), 
+        desc = "Kill focused window"
+    ),
+    EzKey(
+        "Super-r", lazy.restart(), 
+        desc = "Restart Qtile"
+    ),
+    EzKey(
+        "Super-Control-q", lazy.shutdown(), 
+        desc = "Shutdown Qtile"
     ),
 ]
 
+# Workspaces:
+groups = [Group(i) for i in "123456789"]
+
+# Workspaces keybindings:
+for i in groups:
+    keys.extend([
+        # Switch to group:
+        EzKey(
+            "Super-" + i.name, lazy.group[i.name].toscreen(),
+            desc = "Switch to group {}".format(i.name)
+        ),
+
+        # Switch & move to group:
+        EzKey(
+            "Super-Shift-" + i.name, lazy.window.togroup(i.name, switch_group=True),
+            desc = "Switch to & move focused window to group {}".format(i.name)
+        ),
+    ])
+
+# Layout theme:
+layout_theme = {
+    "margin": 20, 
+    "border_width": 1,
+    "single_border_width": 0,
+    "border_normal": "#2E2E2E",
+    "border_focus": "#FFFFFF",
+    "new_client_position": "bottom",
+    "change_size": 80,
+    "change_ratio": .04
+}
+
+# Window layouts:
+layouts = [
+    layout.MonadTall(**layout_theme),
+    layout.MonadWide(**layout_theme),
+    layout.Max(),
+]
+
+# Default bar settings:
 widget_defaults = dict(
-    font='Fira Code',
-    fontsize=16,
-    padding=4,
-    background=colors_mono[0],
-    margin_y = 100
+    font = "Fira Code",
+    fontsize = 16,
+    background = "#FFFFFF",
+    foreground = "#2E2E2E",
+    padding = 3,
 )
 extension_defaults = widget_defaults.copy()
 
-def get_top_bar():
-    return bar.Bar([
-       widget.Spacer(bar.STRETCH),
-       widget.Mpris2(
-           foreground=colors_mono[3],
-           name='spotify',
-           objname="org.mpris.MediaPlayer2.spotify",
-           display_metadata=['xesam:artist', 'xesam:title'],
-           scroll_chars=None,
-           stop_pause_text="",
-       ),
-       widget.TextBox(
-           text=seps,
-           foreground=colors_mono[4],
-       ),
-       widget.TextBox(
-           text='Vol:',
-           foreground=colors_mono[2],
-       ),
-       widget.Volume(
-           foreground=colors_mono[2],
-       ),
-       widget.TextBox(
-           text=seps,
-           foreground=colors_mono[4],
-       ),
-       widget.Clock(
-           format='%A, %B %d',
-           foreground = colors_mono[1],
-           mouse_callbacks = {"Button1": lambda: lazy.spawn("rofi -show")}
-       ),
-       widget.TextBox(
-           text=seps,
-           foreground=colors_mono[4],
-       ),
-       widget.Clock(
-           format='%I:%M %p ',
-           foreground = colors_mono[1],
-           mouse_callbacks = {"Button1": lambda: lazy.spawn("rofi -show")}
-       ),
-    ], bar_size, background="FFFFFF")
-
+# Bar widgets:
 screens = [
-    Screen(top=get_top_bar()),
+    Screen(
+        top=bar.Bar(
+            [
+                widget.Spacer(),
+                # Spotify widget:
+                widget.Mpris2(
+                    name = 'spotify',
+                    objname = "org.mpris.MediaPlayer2.spotify",
+                    display_metadata = ['xesam:artist', 'xesam:title'],
+                    scroll_chars = None,
+                    stop_pause_text = None,
+                    mouse_callbacks = {
+                        "Button1": lambda: qtile.cmd_spawn("spotifycli --playpause"),
+                        "Button4": lambda: qtile.cmd_spawn("spotifycli --next"),
+                        "Button5": lambda: qtile.cmd_spawn("spotifycli --prev"),
+                    }
+                ),
+                widget.TextBox(text="&lt;", foreground="#9E9E9E", padding=15),
+                widget.Volume(fmt="Vol: {}"),
+                widget.TextBox(text="&lt;", foreground="#9E9E9E", padding=15),
+                widget.Clock(format='%A, %B %d'),
+                widget.TextBox(text="&lt;", foreground="#9E9E9E", padding=15),
+                widget.Clock(format='%I:%M:%S %p '),
+            ],
+            50, background = "#FFFFFF",
+        ),
+    ),
 ]
-            
-# Drag floating layouts.
+
+# Mouse controls:
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(),
-         start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(),
-         start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front())
+    Drag(
+        [mod], "Button1", lazy.window.set_position_floating(),
+        start=lazy.window.get_position()
+    ),
+    Drag(
+        [mod], "Button3", lazy.window.set_size_floating(),
+        start=lazy.window.get_size()
+    ),
+    Click(
+        [mod], "Button2", lazy.window.bring_to_front()
+    )
 ]
+
+# Floating exceptions:
+floating_layout = layout.Floating(float_rules=[
+    *layout.Floating.default_float_rules,
+    Match(wm_class='confirmreset'),  # gitk
+    Match(wm_class='makebranch'),  # gitk
+    Match(wm_class='maketag'),  # gitk
+    Match(wm_class='ssh-askpass'),  # ssh-askpass
+    Match(title='branchdialog'),  # gitk
+    Match(title='pinentry'),  # GPG key password entry
+])
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
-main = None
-follow_mouse_focus = False
+follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
-floating_layout = layout.Floating(float_rules=[
-    {'wmclass': 'confirm'},
-    {'wmclass': 'dialog'},
-    {'wmclass': 'download'},
-    {'wmclass': 'error'},
-    {'wmclass': 'file_progress'},
-    {'wmclass': 'notification'},
-    {'wmclass': 'splash'},
-    {'wmclass': 'toolbar'},
-    {'wmclass': 'confirmreset'},  # gitk
-    {'wmclass': 'makebranch'},  # gitk
-    {'wmclass': 'maketag'},  # gitk
-    {'wname': 'branchdialog'},  # gitk
-    {'wname': 'pinentry'},  # GPG key password entry
-    {'wmclass': 'ssh-askpass'},  # ssh-askpass
-])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
+reconfigure_screens = True
 
+# If things like steam games want to auto-minimize themselves when losing
+# focus, should we respect this or not?
+auto_minimize = True
+
+# Java toolkits:
 wmname = "LG3D"
-
-@hook.subscribe.startup_once
-def autostart():
-    subprocess.call("/home/lominoss/.config/qtile/autostart.sh")
