@@ -23,12 +23,12 @@ mod = "mod4"
 ```
 
 ## Keybindings
-### Switch focus:
+### Switch focus
 | Keybinding  | Action |
 | ------------- | ------------- |
 | SUPER + TAB  | Move window focus to the next window  |
 | SUPER+ SHIFT + TAB  | Move window focus to the previous window  |
-### Move windows:
+### Move windows
 | Keybinding  | Action |
 | ------------- | ------------- |
 | SUPER + SHIFT + LEFT  | Move window to the left  |
@@ -36,39 +36,39 @@ mod = "mod4"
 | SUPER + SHIFT + DOWN  | Move window down  |
 | SUPER + SHIFT UP  | Move window up  |
 | SUPER + SPACE  | Flip window stacks  |
-### Resize windows:
+### Resize windows
 | Keybinding  | Action |
 | ------------- | ------------- |
 | SUPER + COMMA  | Grow window  |
 | SUPER + PERIOD  | Shrink window  |
 | SUPER + N  | Reset all window sizes  |
-### Launch applications:
+### Launch applications
 | Keybinding  | Action |
 | ------------- | ------------- |
 | SUPER + T  | Launch terminal  |
 | SUPER + B  | Launch browser  |
 | SUPER + F  | Launch file explorer  |
 | SUPER + S  | Launch Spotify  |
-### Volume controls:
+### Volume controls
 | Keybinding  | Action |
 | ------------- | ------------- |
 | SUPER + F5  | Toggle mute  |
 | SUPER + F7  | Lower volume  |
 | SUPER + F8  | Raise volume  |
-### Spotify controls:
+### Spotify controls
 | Keybinding  | Action |
 | ------------- | ------------- |
 | SUPER + F11  | Toggle pause  |
 | SUPER + F10  | Play previous track  |
 | SUPER + F12  | Play next track  |
-### Control Qtile:
+### Control Qtile
 | Keybinding  | Action |
 | ------------- | ------------- |
 | SUPER + CONTROL + TAB  | Switch layouts  |
 | SUPER + Q  | Kill focused window  |
 | SUPER + R  | Restart Qtile  |
 | SUPER + CONTROL + Q  | Shutdown Qtile  |
-### Workspaces:
+### Workspaces
 | Keybinding  | Action |
 | ------------- | ------------- |
 | SUPER + 1-9  | Move focus to workspace  |
