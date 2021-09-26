@@ -312,7 +312,7 @@ def start_once():
     home = os.path.expanduser("~")
     subprocess.call([home + "/.config/qtile/autostart.sh"])
 ```
-## autostart.sh
+### Commands
 ```bash
 #!/bin/bash
 
