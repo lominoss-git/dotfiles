@@ -236,3 +236,49 @@ layouts = [
     layout.Max(),
 ]
 ```
+# Bar
+### Default bar settings
+```python
+# Default bar settings:
+widget_defaults = dict(
+    font = "Fira Code",
+    fontsize = 16,
+    background = "#FFFFFF",
+    foreground = "#2E2E2E",
+    padding = 3,
+)
+extension_defaults = widget_defaults.copy()
+```
+### Bar widgets
+```python
+# Bar widgets:
+screens = [
+    Screen(
+        top=bar.Bar(
+            [
+                widget.Spacer(),
+                # Spotify widget:
+                widget.Mpris2(
+                    name = 'spotify',
+                    objname = "org.mpris.MediaPlayer2.spotify",
+                    display_metadata = ['xesam:artist', 'xesam:title'],
+                    scroll_chars = None,
+                    stop_pause_text = None,
+                    mouse_callbacks = {
+                        "Button1": lambda: qtile.cmd_spawn("spotifycli --playpause"),
+                        "Button4": lambda: qtile.cmd_spawn("spotifycli --next"),
+                        "Button5": lambda: qtile.cmd_spawn("spotifycli --prev"),
+                    }
+                ),
+                widget.TextBox(text="&lt;", foreground="#9E9E9E", padding=15),
+                widget.Volume(fmt="Vol: {}"),
+                widget.TextBox(text="&lt;", foreground="#9E9E9E", padding=15),
+                widget.Clock(format='%A, %B %d'),
+                widget.TextBox(text="&lt;", foreground="#9E9E9E", padding=15),
+                widget.Clock(format='%I:%M:%S %p '),
+            ],
+            50, background = "#FFFFFF",
+        ),
+    ),
+]
+```
