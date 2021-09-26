@@ -212,3 +212,18 @@ for i in groups:
         ),
     ])
 ```
+## Layouts
+### Layout theme
+```python
+# Layout theme:
+layout_theme = {
+    "margin": 20, 
+    "border_width": 1,
+    "single_border_width": 0,
+    "border_normal": "#2E2E2E",
+    "border_focus": "#FFFFFF",
+    "new_client_position": "bottom",
+    "change_size": 80,
+    "change_ratio": .04
+}
+```
