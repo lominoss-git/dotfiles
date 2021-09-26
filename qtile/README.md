@@ -1,7 +1,7 @@
-# Qtile window manager configuration:
+# Qtile window manager configuration
 ![VirtualBox_Arch Linux - Xmonad_25_09_2021_21_04_26](https://user-images.githubusercontent.com/79030093/134811916-469bb2ef-91e4-450f-9204-c6a924c2708d.png)
 
-## Imports:
+## Imports
 ```python
 # Imports:
 from typing import List
@@ -11,7 +11,7 @@ from libqtile.config import Click, Drag, Group, Key, EzKey, Match, Screen
 from libqtile.lazy import lazy
 ```
 
-## Variables:
+## Variables
 ```python
 # Preffered applications:
 terminal = "termite"
