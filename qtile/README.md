@@ -283,6 +283,11 @@ screens = [
 ]
 ```
 ## Mouse controls
+| SUPER+Button  | Action |
+| ------------- | ------------- |
+| LEFT MOUSE BUTTON  | Switch wndow to floating mode and drag it around  |
+| RIGHT MOUSE BUTTON  | Resize floating window  |
+| MIDDLE MOUSE BUTTON  | Bring floating window to front  |
 ```python
 # Mouse controls:
 mouse = [
