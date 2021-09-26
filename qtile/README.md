@@ -23,33 +23,40 @@ mod = "mod4"
 ```
 
 ## Keybindings
-
+### Switch focus:
 | Keybinding  | Action |
 | ------------- | ------------- |
 | SUPER + TAB  | Move window focus to the next window  |
 | SUPER+ SHIFT + TAB  | Move window focus to the previous window  |
+### Move windows:
 | SUPER + SHIFT + LEFT  | Move window to the left  |
 | SUPER + SHIFT + RIGHT  | Move window to the right  |
 | SUPER + SHIFT + DOWN  | Move window down  |
 | SUPER + SHIFT UP  | Move window up  |
 | SUPER + SPACE  | Flip window stacks  |
+### Resize windows:
 | SUPER + COMMA  | Grow window  |
 | SUPER + PERIOD  | Shrink window  |
 | SUPER + N  | Reset all window sizes  |
+### Launch applications:
 | SUPER + T  | Launch terminal  |
 | SUPER + B  | Launch browser  |
 | SUPER + F  | Launch file explorer  |
 | SUPER + S  | Launch Spotify  |
+### Volume controls:
 | SUPER + F5  | Toggle mute  |
 | SUPER + F7  | Lower volume  |
 | SUPER + F8  | Raise volume  |
+### Spotify controls:
 | SUPER + F11  | Toggle pause  |
 | SUPER + F10  | Play previous track  |
 | SUPER + F12  | Play next track  |
+### Control Qtile:
 | SUPER + CONTROL + TAB  | Switch layouts  |
 | SUPER + Q  | Kill focused window  |
 | SUPER + R  | Restart Qtile  |
 | SUPER + CONTROL + Q  | Shutdown Qtile  |
+### Workspaces:
 | SUPER + 1-9  | Move focus to workspace  |
 | SUPER + SHIFT + 1-9  | Move focused window to workspace  |
 
