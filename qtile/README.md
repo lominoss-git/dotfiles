@@ -23,6 +23,10 @@ mod = "mod4"
 ```
 
 ## Keybindings
+| Keybinding  | Action |
+| ------------- | ------------- |
+| SUPER + TAB  | Content Cell  |
+| Content Cell  | Content Cell  |
 ```python
 # Keybinding modifiers:
 EzKey.modifier_keys = {
