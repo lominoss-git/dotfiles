@@ -227,3 +227,12 @@ layout_theme = {
     "change_ratio": .04
 }
 ```
+### Layouts
+```python
+# Window layouts:
+layouts = [
+    layout.MonadTall(**layout_theme),
+    layout.MonadWide(**layout_theme),
+    layout.Max(),
+]
+```
