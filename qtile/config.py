@@ -259,5 +259,5 @@ reconfigure_screens = True
 # focus, should we respect this or not?
 auto_minimize = True
 
-# Java toolkits:
+# Java UI toolkits:
 wmname = "LG3D"
