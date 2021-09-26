@@ -236,7 +236,7 @@ layouts = [
     layout.Max(),
 ]
 ```
-# Bar
+## Bar
 ### Default bar settings
 ```python
 # Default bar settings:
@@ -281,4 +281,29 @@ screens = [
         ),
     ),
 ]
+```
+## Mouse controls
+```python
+# Mouse controls:
+mouse = [
+    Drag(
+        [mod], "Button1", lazy.window.set_position_floating(),
+        start = lazy.window.get_position()
+    ),
+    Drag(
+        [mod], "Button3", lazy.window.set_size_floating(),
+        start = lazy.window.get_size()
+    ),
+    Click(
+        [mod], "Button2", lazy.window.bring_to_front()
+    )
+]
+```
+## Startup commands
+```python
+# Startup commands:
+@hook.subscribe.startup_once
+def start_once():
+    home = os.path.expanduser("~")
+    subprocess.call([home + "/.config/qtile/autostart.sh"])
 ```
