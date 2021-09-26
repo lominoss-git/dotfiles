@@ -91,7 +91,7 @@ keys = [
     ),
     EzKey(
         "Super-s", lazy.spawn(spotify), 
-        desc = "Launch music player"
+        desc = "Launch Spotify"
     ),
 
     # Volume controls:
@@ -125,7 +125,7 @@ keys = [
     # Control Qtile:
     EzKey(
         "Super-Control-<Tab>", lazy.next_layout(), 
-        desc = "Toggle between layouts"
+        desc = "Switch layouts"
     ),
     EzKey(
         "Super-q", lazy.window.kill(), 
