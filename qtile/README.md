@@ -46,7 +46,7 @@ mod = "mod4"
 | SUPER + F11  | Toggle pause  |
 | SUPER + F10  | Play previous track  |
 | SUPER + F12  | Play next track  |
-| SUPER + CONTROL + TAB  | Switch between layouts  |
+| SUPER + CONTROL + TAB  | Switch layouts  |
 | SUPER + Q  | Kill focused window  |
 | SUPER + R  | Restart Qtile  |
 | SUPER + CONTROL + Q  | Shutdown Qtile  |
