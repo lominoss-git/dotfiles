@@ -26,32 +26,32 @@ mod = "mod4"
 
 | Keybinding  | Action |
 | ------------- | ------------- |
-| SUPER + TAB  | Content Cell  |
-| SUPER+ SHIFT + TAB  | Content Cell  |
-| SUPER + SHIFT + LEFT  | Content Cell  |
-| SUPER + SHIFT + RIGHT  | Content Cell  |
-| SUPER + SHIFT + DOWN  | Content Cell  |
-| SUPER + SHIFT UP  | Content Cell  |
-| SUPER + SPACE  | Content Cell  |
-| SUPER + COMMA  | Content Cell  |
-| SUPER + PERIOD  | Content Cell  |
-| SUPER + N  | Content Cell  |
-| SUPER + T  | Content Cell  |
-| SUPER + B  | Content Cell  |
-| SUPER + F  | Content Cell  |
-| SUPER + S  | Content Cell  |
-| SUPER + F5  | Content Cell  |
-| SUPER + F7  | Content Cell  |
-| SUPER + F8  | Content Cell  |
-| SUPER + F11  | Content Cell  |
-| SUPER + F10  | Content Cell  |
-| SUPER + F12  | Content Cell  |
-| SUPER + CONTROL + TAB  | Content Cell  |
-| SUPER + Q  | Content Cell  |
-| SUPER + R  | Content Cell  |
-| SUPER + CONTROL + Q  | Content Cell  |
-| SUPER + 1-9  | Content Cell  |
-| SUPER + SHIFT + 1-9  | Content Cell  |
+| SUPER + TAB  | Move window focus to the next window  |
+| SUPER+ SHIFT + TAB  | Move window focus to the previous window  |
+| SUPER + SHIFT + LEFT  | Move window to the left  |
+| SUPER + SHIFT + RIGHT  | Move window to the right  |
+| SUPER + SHIFT + DOWN  | Move window down  |
+| SUPER + SHIFT UP  | Move window up  |
+| SUPER + SPACE  | Flip window stacks  |
+| SUPER + COMMA  | Grow window  |
+| SUPER + PERIOD  | Shrink window  |
+| SUPER + N  | Reset all window sizes  |
+| SUPER + T  | Launch terminal  |
+| SUPER + B  | Launch browser  |
+| SUPER + F  | Launch file explorer  |
+| SUPER + S  | Launch Spotify  |
+| SUPER + F5  | Toggle mute  |
+| SUPER + F7  | Lower volume  |
+| SUPER + F8  | Raise volume  |
+| SUPER + F11  | Toggle pause  |
+| SUPER + F10  | Play previous track  |
+| SUPER + F12  | Play next track  |
+| SUPER + CONTROL + TAB  | Switch between layouts  |
+| SUPER + Q  | Kill focused window  |
+| SUPER + R  | Restart Qtile  |
+| SUPER + CONTROL + Q  | Shutdown Qtile  |
+| SUPER + 1-9  | Move focus to workspace  |
+| SUPER + SHIFT + 1-9  | Move focused window to workspace  |
 
 ```python
 # Keybinding modifiers:
