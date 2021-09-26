@@ -312,3 +312,9 @@ def start_once():
     home = os.path.expanduser("~")
     subprocess.call([home + "/.config/qtile/autostart.sh"])
 ```
+## autostart.sh
+```bash
+#!/bin/bash
+
+nitrogen --restore &
+```
