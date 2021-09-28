@@ -163,7 +163,7 @@ for i in groups:
 # Layout theme:
 layout_theme = {
     "margin": 20, 
-    "border_width": 1,
+    "border_width": 2,
     "single_border_width": 0,
     "border_normal": "#2E2E2E",
     "border_focus": "#FFFFFF",
