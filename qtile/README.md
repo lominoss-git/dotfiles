@@ -1,5 +1,5 @@
 # Qtile window manager configuration
-![VirtualBox_Arch Linux - Xmonad_26_09_2021_19_13_45](https://user-images.githubusercontent.com/79030093/134817875-8af10c46-69c0-4e85-baee-95d8757e1bfb.png)
+![Merged_document](https://user-images.githubusercontent.com/79030093/135257513-2c4f8fd1-69e0-4734-b6b6-4363ac04f4db.png)
 ## Imports
 ```python
 # Imports:
