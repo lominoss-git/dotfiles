@@ -229,7 +229,7 @@ keys = [
 # Workspaces:
 groups = [Group(i) for i in "123456789"]
 
-# Workspaces keybindings:
+# Workspace keybindings:
 for i in groups:
     keys.extend([
         # Switch to group:
