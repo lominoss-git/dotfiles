@@ -1,23 +1,47 @@
 # Qtile window manager configuration
-![Merged_document](https://user-images.githubusercontent.com/79030093/135257513-2c4f8fd1-69e0-4734-b6b6-4363ac04f4db.png)
+![Merged_document(1)](https://user-images.githubusercontent.com/79030093/136669886-b07cc624-79f8-45bb-b411-81df86844575.png)
 ## Imports
 ```python
 # Imports:
+import os
+import subprocess
 from typing import List
-from libqtile import qtile
-from libqtile import bar, layout, widget
-from libqtile.config import Click, Drag, Group, Key, EzKey, Match, Screen
+from libqtile import qtile, extension
+from libqtile import bar, layout, widget, hook
+from libqtile.config import Click, Drag, Group, EzKey, Match, Screen
 from libqtile.lazy import lazy
 ```
-## Variables
+## Colors scheme
+```python
+# Color scheme:
+colors = [
+    # Bar colors:
+    "#3B4252", # 0. Background.
+    "#2E3440", # 1. Arch widget foreground.
+    "#E5E9F0", # 2. Arch widget background.
+    "#2E3440", # 3. Time widget foreground.
+    "#D8DEE9", # 4. Time widget background.
+    "#2E3440", # 5. Date widget foreground.
+    "#E5E9F0", # 6. Date widget background.
+    "#2E3440", # 7. Volume widget foreground.
+    "#D8DEE9", # 8. Volume widget background.
+    "#2E3440", # 9. Spotify widget foreground.
+    "#E5E9F0", # 10. Spotify widget background.
+    "#D8DEE9", # 11. Current workspace.
+    
+    # Window decorations:
+    "#D8DEE9", # 12. Active window's border.
+    "#4C566A", # 13. Inactive window's border.
+]
+```
+## Preferred applications
 ```python
 # Preffered applications:
 terminal = "termite"
-browser = "min"
-file_explorer = terminal + " -e ranger"
+browser = "firefox"
+file_explorer = "thunar"
 spotify = "spotify"
-
-mod = "mod4"
+editor = "code"
 ```
 ## Keybindings
 ### Switch focus
