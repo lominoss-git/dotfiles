@@ -70,6 +70,7 @@ editor = "code"
 | SUPER + B  | Launch browser  |
 | SUPER + F  | Launch file explorer  |
 | SUPER + S  | Launch Spotify  |
+| SUPER + C  | Launch code editor  |
 ### Volume controls
 | Keybinding  | Action |
 | ------------- | ------------- |
