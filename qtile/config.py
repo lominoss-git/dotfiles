@@ -216,7 +216,6 @@ layouts = [
 widget_defaults = dict(
     font = "Fira Code",
     fontsize = 16,
-    background = colors[0],
     padding = 0,
 )
 extension_defaults = widget_defaults.copy()
