@@ -14,7 +14,7 @@ from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, EzKey, Match, Screen
 from libqtile.lazy import lazy
 
-# Colors scheme:
+# Color scheme:
 colors = [
     # Bar colors:
     "#3B4252", # 0. Background.
