@@ -123,7 +123,7 @@ keys = [
         desc = "Move window to the left"
     ),
     EzKey(
-        "Super-Shift-<Right>", lazy.layout.shuffle_right(),
+       "Super-Shift-<Right>", lazy.layout.shuffle_right(),
         desc = "Move window to the right"
     ),
     EzKey(
@@ -149,71 +149,79 @@ keys = [
         desc = "Shrink window"
     ),
     EzKey(
-        "Super-n", lazy.layout.normalize(), 
+        "Super-n", lazy.layout.normalize(),
         desc = "Reset all window sizes"
     ),
 
     # Launch applications:
     EzKey(
-        "Super-t", lazy.spawn(terminal), 
+        "Super-<Return>", lazy.spawn("dmenu_run"),
+        desc = "Launch launcher"
+    ),
+    EzKey(
+        "Super-t", lazy.spawn(terminal),
         desc = "Launch terminal"
     ),
     EzKey(
-        "Super-b", lazy.spawn(browser), 
+        "Super-b", lazy.spawn(browser),
         desc = "Launch browser"
     ),
     EzKey(
-        "Super-f", lazy.spawn(file_explorer), 
+        "Super-f", lazy.spawn(file_explorer),
         desc = "Launch file explorer"
     ),
     EzKey(
-        "Super-s", lazy.spawn(spotify), 
-        desc = "Launch music player"
+        "Super-s", lazy.spawn(spotify),
+        desc = "Launch Spotify"
+    ),
+    EzKey(
+        "Super-c", lazy.spawn(editor),
+        desc = "Launch code editor"
     ),
 
     # Volume controls:
     EzKey(
-        "Super-<F5>", lazy.spawn("amixer sset Master toggle"), 
+        "Super-<F5>", lazy.spawn("amixer sset Master toggle"),
         desc = "Toggle mute"
     ),
     EzKey(
-        "Super-<F7>", lazy.spawn("amixer -c 0 -q set Master 1dB-"), 
+        "Super-<F7>", lazy.spawn("amixer -c 0 -q set Master 1dB-"),
         desc = "Lower volume"
     ),
     EzKey(
-        "Super-<F8>", lazy.spawn("amixer -c 0 -q set Master 1dB+"), 
+        "Super-<F8>", lazy.spawn("amixer -c 0 -q set Master 1dB+"),
         desc = "Raise volume"
     ),
 
     # Spotify controls:
     EzKey(
-        "Super-<F11>", lazy.spawn("spotifycli --playpause"), 
+        "Super-<F11>", lazy.spawn("spotifycli --playpause"),
         desc = "Toggle pause"
     ),
     EzKey(
-        "Super-<F10>", lazy.spawn("spotifycli --prev"), 
+        "Super-<F10>", lazy.spawn("spotifycli --prev"),
         desc = "Play previous track"
     ),
     EzKey(
-        "Super-<F12>", lazy.spawn("spotifycli --next"), 
+        "Super-<F12>", lazy.spawn("spotifycli --next"),
         desc = "Play next track"
     ),
 
     # Control Qtile:
     EzKey(
-        "Super-Control-<Tab>", lazy.next_layout(), 
-        desc = "Toggle between layouts"
+        "Super-Control-<Tab>", lazy.next_layout(),
+        desc = "Switch layouts"
     ),
     EzKey(
-        "Super-q", lazy.window.kill(), 
+        "Super-Shift-q", lazy.window.kill(),
         desc = "Kill focused window"
     ),
     EzKey(
-        "Super-r", lazy.restart(), 
+        "Super-r", lazy.restart(),
         desc = "Restart Qtile"
     ),
     EzKey(
-        "Super-Control-q", lazy.shutdown(), 
+        "Super-Shift-l", lazy.shutdown(),
         desc = "Shutdown Qtile"
     ),
 ]
@@ -242,11 +250,12 @@ for i in groups:
 ```python
 # Layout theme:
 layout_theme = {
-    "margin": 20, 
-    "border_width": 1,
-    "single_border_width": 0,
-    "border_normal": "#2E2E2E",
-    "border_focus": "#FFFFFF",
+    "margin": 20,
+    "single_margin": 20,
+    "border_width": 2,
+    "single_border_width": 2,
+    "border_focus": colors[12],
+    "border_normal": colors[13],
     "new_client_position": "bottom",
     "change_size": 80,
     "change_ratio": .04
@@ -268,9 +277,7 @@ layouts = [
 widget_defaults = dict(
     font = "Fira Code",
     fontsize = 16,
-    background = "#FFFFFF",
-    foreground = "#2E2E2E",
-    padding = 3,
+    padding = 0,
 )
 extension_defaults = widget_defaults.copy()
 ```
@@ -281,51 +288,134 @@ screens = [
     Screen(
         top=bar.Bar(
             [
+                # Current group widget:
+                widget.AGroupBox(
+                    borderwidth = 0,
+                    mouse_callbacks = {
+                        "Button4": lambda: qtile.current_screen.cmd_next_group(),
+                        "Button5": lambda: qtile.current_screen.cmd_prev_group()
+                    },
+                    foreground = colors[11],
+                    margin_x = 12
+                ),
                 widget.Spacer(),
                 # Spotify widget:
+                widget.TextBox(
+                    text = "\ue0be", 
+                    font = "Inconsolata for powerline", 
+                    fontsize = 50,
+                    foreground = colors[10],
+                    background = colors[0]
+                ),
                 widget.Mpris2(
-                    name = 'spotify',
+                    name = "spotify",
                     objname = "org.mpris.MediaPlayer2.spotify",
-                    display_metadata = ['xesam:artist', 'xesam:title'],
+                    display_metadata = ["xesam:artist", "xesam:title"],
                     scroll_chars = None,
                     stop_pause_text = None,
                     mouse_callbacks = {
                         "Button1": lambda: qtile.cmd_spawn("spotifycli --playpause"),
                         "Button4": lambda: qtile.cmd_spawn("spotifycli --next"),
-                        "Button5": lambda: qtile.cmd_spawn("spotifycli --prev"),
-                    }
+                        "Button5": lambda: qtile.cmd_spawn("spotifycli --prev")
+                    },
+                    foreground = colors[9],
+                    background = colors[10],
+                    padding = 15
                 ),
-                widget.TextBox(text="&lt;", foreground="#9E9E9E", padding=15),
-                widget.Volume(fmt="Vol: {}"),
-                widget.TextBox(text="&lt;", foreground="#9E9E9E", padding=15),
-                widget.Clock(format='%A, %B %d'),
-                widget.TextBox(text="&lt;", foreground="#9E9E9E", padding=15),
-                widget.Clock(format='%I:%M:%S %p '),
+                #widget.Spacer(),
+                widget.TextBox(
+                    text = "\ue0be", 
+                    font = "Inconsolata for powerline", 
+                    fontsize = 50,
+                    foreground = colors[8],
+                    background = colors[10]
+                ),
+                # Volume widget:
+                widget.Volume(
+                    fmt = "Vol: {}", 
+                    foreground = colors[7], 
+                    background = colors[8],
+                    padding = 15
+                ),
+                widget.TextBox(
+                    text = "\ue0be", 
+                    font = "Inconsolata for powerline", 
+                    fontsize = 50,
+                    foreground = colors[6],
+                    background = colors[8]
+                ),
+                # Date widget:
+                widget.Clock(
+                    format = "%A, %B %d", 
+                    foreground = colors[5], 
+                    background = colors[6],
+                    padding = 15
+                ), 
+                widget.TextBox(
+                    text = "\ue0be", 
+                    font = "Inconsolata for powerline", 
+                    fontsize = 50,
+                    foreground = colors[4],
+                    background = colors[6]
+                ),
+                # Time widget:
+                widget.Clock(
+                    format = "%I:%M:%S %p", 
+                    foreground = colors[3], 
+                    background = colors[4],
+                    padding = 15
+                ),
+                # widget.TextBox(
+                #     text = "\ue0be", 
+                #     font = "Inconsolata for powerline", 
+                #     fontsize = 50,
+                #     foreground = colors[2],
+                #     background = colors[4]
+                # ),
+                # widget.TextBox(
+                #     text = "  ", 
+                #     font = "Iosevka Nerd Font", 
+                #     fontsize = 18,
+                #     mouse_callbacks = {
+                #         "Button1": lambda: qtile.cmd_spawn("dmenu_run"),
+                #     },
+                #     foreground = colors[1],
+                #     background = colors[2],
+                #     padding = 10
+                # ),
             ],
-            50, background = "#FFFFFF",
+            45, background=colors[0], margin=[0, 0, 0, 0]
         ),
     ),
 ]
 ```
 ## Mouse controls
-| SUPER+Button  | Action |
+### Click
+| Button  | Action |
 | ------------- | ------------- |
-| LEFT MOUSE BUTTON  | Switch wndow to floating mode and drag it around  |
-| RIGHT MOUSE BUTTON  | Resize floating window  |
-| MIDDLE MOUSE BUTTON  | Bring floating window to front  |
+| SUPER + SHIFT + LEFT  | Bring floating window to front  |
+| SUPER + SHIFT + MIDDLE  | Toggle floating mode  |
+### Drag
+| Button  | Action |
+| ------------- | ------------- |
+| SUPER + SHIFT + LEFT  | Move floating window  |
+| SUPER + SHIFT + RIGHT  | Resize floating window  |
 ```python
 # Mouse controls:
 mouse = [
+    Click(
+        [mod, "shift"], "Button1", lazy.window.bring_to_front()
+    ),
+    Click(
+        [mod, "shift"], "Button2", lazy.window.toggle_floating()
+    ),
     Drag(
-        [mod], "Button1", lazy.window.set_position_floating(),
+        [mod, "shift"], "Button1", lazy.window.set_position_floating(),
         start = lazy.window.get_position()
     ),
     Drag(
-        [mod], "Button3", lazy.window.set_size_floating(),
+        [mod, "shift"], "Button3", lazy.window.set_size_floating(),
         start = lazy.window.get_size()
-    ),
-    Click(
-        [mod], "Button2", lazy.window.bring_to_front()
     )
 ]
 ```
