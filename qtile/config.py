@@ -176,7 +176,7 @@ keys = [
 # Workspaces:
 groups = [Group(i) for i in "123456789"]
 
-# Workspaces keybindings:
+# Workspace keybindings:
 for i in groups:
     keys.extend([
         # Switch to group:
@@ -328,19 +328,19 @@ screens = [
 
 # Mouse controls:
 mouse = [
+    Click(
+        [mod, "shift"], "Button1", lazy.window.bring_to_front()
+    ),
+    Click(
+        [mod, "shift"], "Button2", lazy.window.toggle_floating()
+    ),
     Drag(
         [mod, "shift"], "Button1", lazy.window.set_position_floating(),
         start = lazy.window.get_position()
     ),
-    Click(
-        [mod, "shift"], "Button1", lazy.window.bring_to_front()
-    ),
     Drag(
         [mod, "shift"], "Button3", lazy.window.set_size_floating(),
         start = lazy.window.get_size()
-    ),
-    Click(
-        [mod, "shift"], "Button2", lazy.window.toggle_floating()
     )
 ]
 
