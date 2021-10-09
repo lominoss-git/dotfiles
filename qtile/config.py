@@ -205,12 +205,28 @@ layout_theme = {
     "change_ratio": .04
 }
 
-# Window layouts:
+# Tiling layouts:
 layouts = [
     layout.MonadTall(**layout_theme),
     layout.MonadWide(**layout_theme),
     layout.Max(),
 ]
+
+# Floating layout:
+floating_layout = layout.Floating(
+    float_rules=[
+        *layout.Floating.default_float_rules,
+        Match(wm_class='confirmreset'),  # gitk
+        Match(wm_class='makebranch'),  # gitk
+        Match(wm_class='maketag'),  # gitk
+        Match(wm_class='ssh-askpass'),  # ssh-askpass
+        Match(title='branchdialog'),  # gitk
+        Match(title='pinentry'),  # GPG key password entry
+    ],
+    border_width = 2,
+    border_focus = colors[12],
+    border_normal = colors[13],
+)
 
 # Default bar settings:
 widget_defaults = dict(
@@ -343,22 +359,6 @@ mouse = [
         start = lazy.window.get_size()
     )
 ]
-
-# Floating exceptions:
-floating_layout = layout.Floating(
-    float_rules=[
-        *layout.Floating.default_float_rules,
-        Match(wm_class='confirmreset'),  # gitk
-        Match(wm_class='makebranch'),  # gitk
-        Match(wm_class='maketag'),  # gitk
-        Match(wm_class='ssh-askpass'),  # ssh-askpass
-        Match(title='branchdialog'),  # gitk
-        Match(title='pinentry'),  # GPG key password entry
-    ],
-    border_width = 2,
-    border_focus = colors[12],
-    border_normal = colors[13],
-)
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
