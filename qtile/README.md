@@ -250,8 +250,8 @@ for i in groups:
 ```python
 # Layout theme:
 layout_theme = {
-    "margin": 20,
-    "single_margin": 20,
+    "margin": 15,
+    "single_margin": 15,
     "border_width": 2,
     "single_border_width": 2,
     "border_focus": colors[12],
