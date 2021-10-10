@@ -1,5 +1,5 @@
 # Qtile window manager configuration
-![Merged_document(5)](https://user-images.githubusercontent.com/79030093/136708040-e0a3fbe2-786d-46c4-ae10-f20600932be3.png)
+![Merged_document(7)](https://user-images.githubusercontent.com/79030093/136708129-63bc139a-cf3a-40b1-b846-64b2f5807a89.png)
 ## Imports
 ```python
 # Imports:
