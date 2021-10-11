@@ -1,5 +1,5 @@
 # Qtile window manager configuration
-![Merged_document(7)](https://user-images.githubusercontent.com/79030093/136708129-63bc139a-cf3a-40b1-b846-64b2f5807a89.png)
+![Merged_document(8)](https://user-images.githubusercontent.com/79030093/136835569-130e38fd-0d2e-4cb9-bb1f-8645640b1b11.png)
 ## Imports
 ```python
 # Imports:
@@ -302,7 +302,7 @@ extension_defaults = widget_defaults.copy()
 # Bar widgets:
 screens = [
     Screen(
-        top=bar.Bar(
+        bottom=bar.Bar(
             [
                 # Current group widget:
                 widget.AGroupBox(
