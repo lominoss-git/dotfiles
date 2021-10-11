@@ -239,7 +239,7 @@ extension_defaults = widget_defaults.copy()
 # Bar widgets:
 screens = [
     Screen(
-        top=bar.Bar(
+        bottom=bar.Bar(
             [
                 # Current group widget:
                 widget.AGroupBox(
