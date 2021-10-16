@@ -336,7 +336,7 @@ screens = [
                     },
                     foreground = colors[9],
                     background = colors[10],
-                    padding = 20
+                    padding = 15
                 ),
                 #widget.Spacer(),
                 widget.TextBox(
@@ -351,7 +351,7 @@ screens = [
                     fmt = "Vol: {}", 
                     foreground = colors[7], 
                     background = colors[8],
-                    padding = 20
+                    padding = 15
                 ),
                 widget.TextBox(
                     text = "\ue0be", 
@@ -365,7 +365,7 @@ screens = [
                     format = "%A, %B %d", 
                     foreground = colors[5], 
                     background = colors[6],
-                    padding = 20
+                    padding = 15
                 ), 
                 widget.TextBox(
                     text = "\ue0be", 
@@ -379,7 +379,7 @@ screens = [
                     format = "%I:%M:%S %p", 
                     foreground = colors[3], 
                     background = colors[4],
-                    padding = 20
+                    padding = 15
                 ),
                 # widget.TextBox(
                 #     text = "\ue0be", 
