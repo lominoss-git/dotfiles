@@ -42,7 +42,9 @@ colors = [
     "#4C566A", # 16. Inactive window's border.
 ]
 
+# Window decorations:
 border_width = 4
+window_gap = 20
 
 # Preffered applications:
 terminal = "termite"
@@ -91,7 +93,7 @@ keys = [
         desc = "Move window up"
     ),
     EzKey(
-        "Super-<space>", lazy.layout.flip(), 
+        "Super-Shift-f", lazy.layout.flip(), 
         desc = "Flip window stacks"
     ),
 
@@ -111,11 +113,11 @@ keys = [
 
     # Launch applications:
     EzKey(
-        "Super-<Return>", lazy.spawn("rofi -show drun -display-drun Search"),
+        "Super-<space>", lazy.spawn("rofi -show drun -display-drun Search"),
         desc = "Launch launcher"
     ),
     EzKey(
-        "Super-t", lazy.spawn(terminal),
+        "Super-<Return>", lazy.spawn(terminal),
         desc = "Launch terminal"
     ),
     EzKey(
@@ -134,7 +136,13 @@ keys = [
         "Super-c", lazy.spawn(editor),
         desc = "Launch code editor"
     ),
-
+    
+    # Bar visibiliy:
+    EzKey(
+        "Super-Shift-b", lazy.hide_show_bar(position="bottom"),
+        desc = "Toggle bar visibility"
+    ),
+    
     # Volume controls:
     EzKey(
         "Super-<F5>", lazy.spawn("amixer sset Master toggle"),
@@ -203,8 +211,8 @@ for i in groups:
 
 # Layout theme:
 layout_theme = {
-    "margin": 15,
-    "single_margin": 15,
+    "margin": window_gap,
+    "single_margin": window_gap,
     "border_width": border_width,
     "single_border_width": border_width,
     "border_focus": colors[15],
@@ -222,7 +230,6 @@ layouts = [
     layout.Max(),
 ]
 
-# Floating layout:
 floating_layout = layout.Floating(
     float_rules=[
         *layout.Floating.default_float_rules,
@@ -249,7 +256,7 @@ extension_defaults = widget_defaults.copy()
 # Bar widgets:
 screens = [
     Screen(
-        bottom=bar.Bar(
+        bottom = bar.Bar(
             [
                 # Current group widget:
                 widget.AGroupBox(
@@ -381,7 +388,7 @@ mouse = [
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
-follow_mouse_focus = True
+follow_mouse_focus = False
 bring_front_click = True
 cursor_warp = False
 auto_fullscreen = True
