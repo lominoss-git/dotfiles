@@ -1,12 +1,12 @@
 [options]
-allow_bold = false
+allow_bold = true
 #audible_bell = false
 #bold_is_bright = true
 cell_height_scale = 1.15
 #cell_width_scale = 1.0
 #clickable_url = true
 #dynamic_title = true
-font = Fira Code 12
+font = Fira Mono 12
 #fullscreen = true
 #icon_name = terminal
 #mouse_autohide = false
@@ -20,10 +20,10 @@ scrollback_lines = 10000
 #hyperlinks = false
 
 # $BROWSER is used by default if set, with xdg-open as a fallback
-browser = firefox
+browser = firefox 
 
 # "system", "on" or "off"
-#cursor_blink = system
+cursor_blink = on
 
 # "block", "underline" or "ibeam"
 cursor_shape = ibeam
@@ -35,7 +35,7 @@ cursor_shape = ibeam
 #modify_other_keys = false
 
 # set size hints for the window
-#size_hints = false
+size_hints = true
 
 # "off", "left" or "right"
 #scrollbar = off
@@ -43,37 +43,36 @@ cursor_shape = ibeam
 [colors]
 # If both of these are unset, cursor falls back to the foreground color,
 # and cursor_foreground falls back to the background color.
-#cursor = #dcdccc
-#cursor_foreground = #dcdccc
+cursor = #eceff4
+cursor_foreground = #eceff4
 
 #foreground = #dcdccc
 #foreground_bold = #ffffff
 #background = #3f3f3f
 
-# 20% background transparency (requires a compositor)
+# 20% background transparency (requires a compositor)0
 #background = rgba(63, 63, 63, 0.8)
 
 # If unset, will reverse foreground and background
-highlight = #2f2f2f
+highlight = #9E9E9E
 
 # Colors from color0 to color254 can be set
-color0 = #FFFFFF
-color1 = #2A2A2A
-color2 = #2A2A2A
-color3 = #2A2A2A
-color4 = #2A2A2A
-color5 = #2A2A2A
-color6 = #2A2A2A
-color7 = #2A2A2A
-
-color8 = #2A2A2A
-color9 = #2A2A2A
-color10 = #2A2A2A
-color11 = #2A2A2A
-color12 = #2A2A2A
-color13 = #2A2A2A
-color14 = #2A2A2A
-color15 = #2A2A2A
+color0  = #2e3440
+color1  = #bf616a
+color2  = #a3be8c
+color3  = #ebcb8b
+color4  = #81a1c1
+color5  = #b48ead
+color6  = #88c0d0
+color7  = #e5e9f0
+color8  = #4c566a
+color9  = #bf616a
+color10 = #a3be8c
+color11 = #ebcb8b
+color12 = #81a1c1
+color13 = #b48ead
+color14 = #8fbcbb
+color15 = #eceff4
 
 [hints]
 #font = Monospace 12
