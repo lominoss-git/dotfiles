@@ -1,0 +1,12 @@
+#!/bin/bash
+
+os='Arch, btw'
+kernel=$(uname -r | cut -d'-' -f1)
+shell=$(echo $SHELL | awk '{ print substr ( $0, 6 ) }')
+uptime=$(uptime -p | awk '{ print substr ( $0, 4 ) }')
+
+echo -e '\033[31m\033[1mOS      →\033[0m  '$os
+echo -e '\033[32m\033[1mKERNEL  →\033[0m  '$kernel
+echo -e '\033[33m\033[1mSHELL   →\033[0m  '${shell^}
+echo -e '\033[34m\033[1mUPTIME  →\033[0m  '$uptime
+
