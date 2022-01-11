@@ -21,30 +21,31 @@ from libqtile.lazy import lazy
 # Color scheme:
 colors = [
     # Bar colors:
-    "#2E3440", # 0. Background.
-    "#2E3440", # 1. Arch widget foreground.
-    "#E5E9F0", # 2. Arch widget background.
-    "#2E3440", # 3. Time widget foreground.
-    "#D8DEE9", # 4. Time widget background.
-    "#2E3440", # 5. Date widget foreground.
-    "#E5E9F0", # 6. Date widget background.
-    "#2E3440", # 7. Volume widget foreground.
-    "#D8DEE9", # 8. Volume widget background.
-    "#2E3440", # 9. Pomodoro widget foreground.
-    "#E5E9F0", # 10. Pomodoro widget background.
-    "#2E3440", # 11. Spotify widget foreground.
-    "#D8DEE9", # 12. Spotify widget background.
+    "#2E3440", #  0. Background.
+    "#2E3440", #  1. Power foreground.
+    "#E5E9F0", #  2. Power background.
+    "#2E3440", #  3. Time foreground.
+    "#D8DEE9", #  4. Time background.
+    "#2E3440", #  5. Date foreground.
+    "#E5E9F0", #  6. Date background.
+    "#2E3440", #  7. Volume foreground.
+    "#D8DEE9", #  8. Volume background.
+    "#2E3440", #  9. Pomodoro foreground.
+    "#E5E9F0", # 10. Pomodoro background.
+    "#2E3440", # 11. Spotify foreground.
+    "#E5E9F0", # 12. Spotify background.
     "#2E3440", # 13. Current workspace foreground.
     "#D8DEE9", # 14. Current workspace background.
-
+    "#2E3440", # 15. Window foreground.
+    "#E5E9F0", # 16. Window background.
     # Window decorations:
-    "#D8DEE9", # 15. Active window's border.
-    "#4C566A", # 16. Inactive window's border.
+    "#D8DEE9", # 17. Active window's border.
+    "#4C566A", # 18. Inactive window's border.
 ]
 
 # Window decorations:
 border_width = 4
-window_gap = 20
+inner_gap = 20
 
 # Preffered applications:
 terminal = "termite"
@@ -139,7 +140,7 @@ keys = [
     
     # Bar visibiliy:
     EzKey(
-        "Super-Shift-b", lazy.hide_show_bar(position="bottom"),
+        "Super-Shift-b", lazy.hide_show_bar(position="all"),
         desc = "Toggle bar visibility"
     ),
     
@@ -153,7 +154,7 @@ keys = [
         desc = "Lower volume"
     ),
     EzKey(
-        "Super-<F8>", lazy.spawn("amixer -c 0 -q set Master 1dB+"),
+         "Super-<F8>", lazy.spawn("amixer -c 0 -q set Master 1dB+"),
         desc = "Raise volume"
     ),
 
@@ -173,8 +174,8 @@ keys = [
 
     # Control Qtile:
     EzKey(
-        "Super-Control-<Tab>", lazy.next_layout(),
-        desc = "Switch layouts"
+    "Super-Control-<Tab>", lazy.next_layout(),
+    desc = "Switch layouts"
     ),
     EzKey(
         "Super-Shift-q", lazy.window.kill(),
@@ -211,12 +212,12 @@ for i in groups:
 
 # Layout theme:
 layout_theme = {
-    "margin": window_gap,
-    "single_margin": window_gap,
+    "margin": inner_gap,
+    "single_margin": inner_gap,
     "border_width": border_width,
     "single_border_width": border_width,
-    "border_focus": colors[15],
-    "border_normal": colors[16],
+    "border_focus": colors[17],
+    "border_normal": colors[18],
     "new_client_position": "bottom",
     "change_size": 80,
     "change_ratio": .04,
@@ -226,7 +227,7 @@ layout_theme = {
 # Tiling layouts:
 layouts = [
     layout.MonadTall(**layout_theme),
-    layout.MonadWide(**layout_theme),
+    # layout.MonadWide(**layout_theme),
     layout.Max(),
 ]
 
@@ -241,8 +242,8 @@ floating_layout = layout.Floating(
         Match(title='pinentry'),  # GPG key password entry
     ],
     border_width = border_width,
-    border_focus = colors[15],
-    border_normal = colors[16],
+    border_focus = colors[17],
+    border_normal = colors[18],
 )
 
 # Default bar settings:
@@ -257,21 +258,20 @@ extension_defaults = widget_defaults.copy()
 screens = [
     Screen(
         bottom = bar.Bar(
-            [
+            [   
                 # Current group widget:
                 widget.AGroupBox(
                     borderwidth = 0,
                     mouse_callbacks = {
-                        "Button1": lambda: qtile.cmd_spawn("rofi -show drun -display-drun Search"),
                         "Button4": lambda: qtile.current_screen.cmd_next_group(),
                         "Button5": lambda: qtile.current_screen.cmd_prev_group()
                     },
                     foreground = colors[11],
                     background = colors[12],
-                    margin_x = 14
+                    margin_x = 20
                 ),
                 widget.TextBox(
-                    text = "\ue0be", 
+                    text = "\ue0ba", 
                     font = "Inconsolata for powerline", 
                     fontsize = 45,
                     foreground = colors[0],
@@ -280,7 +280,7 @@ screens = [
                 widget.Spacer(),
                 # Spotify widget:
                 widget.TextBox(
-                    text = "\ue0be", 
+                    text = "\ue0ba", 
                     font = "Inconsolata for powerline", 
                     fontsize = 45,
                     foreground = colors[12],
@@ -290,6 +290,7 @@ screens = [
                     name = "spotify",
                     objname = "org.mpris.MediaPlayer2.spotify",
                     display_metadata = ["xesam:artist", "xesam:title"],
+                    max_chars = 45,
                     scroll_chars = None,
                     stop_pause_text = None,
                     mouse_callbacks = {
@@ -299,44 +300,44 @@ screens = [
                     },
                     foreground = colors[11],
                     background = colors[12],
-                    padding = 15
+                    padding = 24
                 ),
-                widget.TextBox(
-                    text = "\ue0be", 
-                    font = "Inconsolata for powerline", 
-                    fontsize = 45,
-                    foreground = colors[10],
-                    background = colors[12]
-                ),
+                # widget.TextBox(
+                #     text = "\ue0ba", 
+                #     font = "Inconsolata for powerline", 
+                #     fontsize = 45,
+                #     foreground = colors[10],
+                #     background = colors[12]
+                # ),
                 # Pomodoro widget:
-                widget.Pomodoro(
-                    prefix_break = "Break: ",
-                    prefix_long_break = "Long break: ",
-                    prefix_paused = "Paused",
-                    prefix_inactive = "Pomodoro",
-                    color_active = colors[9],
-                    color_break = colors[9],
-                    color_inactive = colors[9],
-                    foreground = colors[9],
-                    background = colors[10],
-                    padding = 15
-                ),
+                # widget.Pomodoro(
+                #     prefix_break = "Break: ",
+                #     prefix_long_break = "Long break: ",
+                #     prefix_paused = "Paused",
+                #     prefix_inactive = "Pomodoro",
+                #     color_active = colors[9],
+                #     color_break = colors[9],
+                #     color_inactive = colors[9],
+                #     foreground = colors[9],
+                #     background = colors[10],
+                #     padding = 20
+                # ),
                 widget.TextBox(
-                    text = "\ue0be", 
+                    text = "\ue0ba", 
                     font = "Inconsolata for powerline", 
                     fontsize = 45,
                     foreground = colors[8],
-                    background = colors[10]
+                    background = colors[12]
                 ),
                 # Volume widget:
                 widget.Volume(
                     fmt = "Vol: {}", 
                     foreground = colors[7], 
                     background = colors[8],
-                    padding = 15
+                    padding = 24
                 ),
                 widget.TextBox(
-                    text = "\ue0be", 
+                    text = "\ue0ba", 
                     font = "Inconsolata for powerline", 
                     fontsize = 45,
                     foreground = colors[6],
@@ -347,10 +348,10 @@ screens = [
                     format = "%A, %B %d", 
                     foreground = colors[5], 
                     background = colors[6],
-                    padding = 15
+                    padding = 24
                 ), 
                 widget.TextBox(
-                    text = "\ue0be", 
+                    text = "\ue0ba", 
                     font = "Inconsolata for powerline", 
                     fontsize = 45,
                     foreground = colors[4],
@@ -358,12 +359,26 @@ screens = [
                 ),
                 # Time widget:
                 widget.Clock(
-                    format = "%I:%M:%S %p", 
+                    format = "%I:%M %p", 
                     foreground = colors[3], 
                     background = colors[4],
-                    padding = 15
+                    padding = 24
                 ),
-            ], 45, background=colors[0], margin=[0, 0, 0, 0]
+                widget.TextBox(
+                    text = "\ue0ba", 
+                    font = "Inconsolata for powerline", 
+                    fontsize = 45,
+                    foreground = colors[2],
+                    background = colors[4],
+                ),
+                # Power widget:
+                widget.TextBox(
+                    text = "Power",
+                    foreground = colors[1],
+                    background = colors[2],
+                    padding = 24
+                ),
+            ], 48, background=colors[0], margin=[0, 0, 0, 0]
         ),
     ),
 ]
@@ -389,7 +404,7 @@ mouse = [
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 follow_mouse_focus = False
-bring_front_click = True
+bring_front_click = False
 cursor_warp = False
 auto_fullscreen = True
 focus_on_window_activation = "smart"
