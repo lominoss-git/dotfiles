@@ -45,14 +45,15 @@ colors = [
 
 # Window decorations:
 border_width = 4
-inner_gap = 20
+inner_gap = 15 
+widget_padding = 22
 
 # Preffered applications:
 terminal = "termite"
 browser = "firefox"
 file_explorer = "thunar"
 spotify = "spotify"
-editor = "code"
+editor = "termite -e micro"
 
 mod = "mod4"
 
@@ -277,10 +278,13 @@ screens = [
                     foreground = colors[0],
                     background = colors[12]
                 ),
-                widget.Spacer(),
+                widget.WindowName(
+                    format = "{name}",
+                    padding = 10
+                ),
                 # Spotify widget:
                 widget.TextBox(
-                    text = "\ue0ba", 
+                    text = "\ue0ba",
                     font = "Inconsolata for powerline", 
                     fontsize = 45,
                     foreground = colors[12],
@@ -300,7 +304,7 @@ screens = [
                     },
                     foreground = colors[11],
                     background = colors[12],
-                    padding = 24
+                    padding = widget_padding
                 ),
                 # widget.TextBox(
                 #     text = "\ue0ba", 
@@ -320,7 +324,7 @@ screens = [
                 #     color_inactive = colors[9],
                 #     foreground = colors[9],
                 #     background = colors[10],
-                #     padding = 20
+                #     padding = widget_padding
                 # ),
                 widget.TextBox(
                     text = "\ue0ba", 
@@ -334,7 +338,7 @@ screens = [
                     fmt = "Vol: {}", 
                     foreground = colors[7], 
                     background = colors[8],
-                    padding = 24
+                    padding = widget_padding
                 ),
                 widget.TextBox(
                     text = "\ue0ba", 
@@ -348,7 +352,7 @@ screens = [
                     format = "%A, %B %d", 
                     foreground = colors[5], 
                     background = colors[6],
-                    padding = 24
+                    padding = widget_padding
                 ), 
                 widget.TextBox(
                     text = "\ue0ba", 
@@ -362,7 +366,7 @@ screens = [
                     format = "%I:%M %p", 
                     foreground = colors[3], 
                     background = colors[4],
-                    padding = 24
+                    padding = widget_padding
                 ),
                 widget.TextBox(
                     text = "\ue0ba", 
@@ -372,14 +376,19 @@ screens = [
                     background = colors[4],
                 ),
                 # Power widget:
-                widget.TextBox(
-                    text = "Power",
+                widget.QuickExit(
+                    default_text = "Log out",
+                    countdown_format = "{} sec..",
+                    countdown_start = 6,
                     foreground = colors[1],
                     background = colors[2],
-                    padding = 24
+                    padding = widget_padding
                 ),
-            ], 48, background=colors[0], margin=[0, 0, 0, 0]
+            ], 48, background=colors[0], margin=[inner_gap, 0, 0, 0]
         ),
+        left=bar.Gap(inner_gap),
+        right=bar.Gap(inner_gap),
+        top=bar.Gap(inner_gap),
     ),
 ]
 
