@@ -1,0 +1,7 @@
+{
+    "autosu": true,
+    "colorscheme": "nord",
+    "rmtrailingws": true,
+    "savecursor": true,
+    "statusformatl": "$(modified)$(filename) | $(opt:filetype)"
+}
