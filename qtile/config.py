@@ -1,9 +1,9 @@
-#  _                 _ 
+#  _                 _
 # | | ___  _ __ ___ (_)
 # | |/ _ \| '_ ` _ \| |
 # | | (_) | | | | | | |
 # |_|\___/|_| |_| |_|_|
-#  _ __   ___  ___ ___ 
+#  _ __   ___  ___ ___
 # | '_ \ / _ \/ __/ __|
 # | | | | (_) \__ \__ \
 # |_| |_|\___/|___/___/
@@ -15,45 +15,39 @@ import subprocess
 from typing import List
 from libqtile import qtile, extension
 from libqtile import bar, layout, widget, hook
-from libqtile.config import Click, Drag, Group, EzKey, Match, Screen
+from libqtile.config import Click, Drag, Group, EzKey, Key, KeyChord, Match, Screen
 from libqtile.lazy import lazy
+from custom_max import CustomMax
 
 # Color scheme:
 colors = [
     # Bar colors:
-    "#2E3440", #  0. Background.
-    "#2E3440", #  1. Power foreground.
-    "#E5E9F0", #  2. Power background.
-    "#2E3440", #  3. Time foreground.
-    "#D8DEE9", #  4. Time background.
-    "#2E3440", #  5. Date foreground.
-    "#E5E9F0", #  6. Date background.
-    "#2E3440", #  7. Volume foreground.
-    "#D8DEE9", #  8. Volume background.
-    "#2E3440", #  9. Pomodoro foreground.
-    "#E5E9F0", # 10. Pomodoro background.
-    "#2E3440", # 11. Spotify foreground.
-    "#E5E9F0", # 12. Spotify background.
-    "#2E3440", # 13. Current workspace foreground.
-    "#D8DEE9", # 14. Current workspace background.
-    "#2E3440", # 15. Window foreground.
-    "#E5E9F0", # 16. Window background.
+    ["#E5E9F0", "#2E3440"], # Background
+    ["#2E3440", "#E5E9F0"], # Time
+    ["#2E3440", "#D8DEE9"], # Date
+    ["#2E3440", "#E5E9F0"], # Battery
+    ["#2E3440", "#D8DEE9"], # Volume
+    ["#2E3440", "#E5E9F0"], # Memory
+    ["#2E3440", "#D8DEE9"], # Spotify
+    ["#2E3440", "#E5E9F0"], # Workspace
     # Window decorations:
-    "#D8DEE9", # 17. Active window's border.
-    "#4C566A", # 18. Inactive window's border.
+    ["#D8DEE9", "#434C5E"], # Borders
 ]
 
 # Window decorations:
 border_width = 4
-inner_gap = 15 
-widget_padding = 22
+inner_gap = 14
+outer_gap = 30
+widget_padding = 18
 
 # Preffered applications:
-terminal = "termite"
-browser = "firefox"
-file_explorer = "thunar"
-spotify = "spotify"
-editor = "termite -e micro"
+apps = {
+    "terminal": "termite",
+    "browser": "firefox",
+    "file_explorer": "thunar",
+    "editor": "termite -e micro",
+    "music_player": "spotify"
+}
 
 mod = "mod4"
 
@@ -67,129 +61,52 @@ EzKey.modifier_keys = {
 
 # Keybindings:
 keys = [
-    # Switch focus:
-    EzKey(
-        "Super-<Tab>", lazy.layout.next(),
-        desc = "Move window focus to the next window"
-    ),
-    EzKey(
-        "Super-Shift-<Tab>", lazy.layout.previous(),
-        desc = "Move window focus to the previous window"
-    ),
-
     # Move windows:
-    EzKey(
-        "Super-Shift-<Left>", lazy.layout.shuffle_left(),
-        desc = "Move window to the left"
-    ),
-    EzKey(
-       "Super-Shift-<Right>", lazy.layout.shuffle_right(),
-        desc = "Move window to the right"
-    ),
-    EzKey(
-        "Super-Shift-<Down>", lazy.layout.shuffle_down(),
-        desc = "Move window down"
-    ),
-    EzKey(
-        "Super-Shift-<Up>", lazy.layout.shuffle_up(), 
-        desc = "Move window up"
-    ),
-    EzKey(
-        "Super-Shift-f", lazy.layout.flip(), 
-        desc = "Flip window stacks"
-    ),
+    EzKey("Super-Shift-<Left>", lazy.layout.shuffle_left()), # Move left
+    EzKey("Super-Shift-<Right>", lazy.layout.shuffle_right()), # Move right
+    EzKey("Super-Shift-<Down>", lazy.layout.shuffle_down()), # Move down
+    EzKey("Super-Shift-<Up>", lazy.layout.shuffle_up()), # Move Up
+    EzKey("Super-Shift-f", lazy.layout.flip()), # Flip layout
 
     # Resize windows:
-    EzKey(
-        "Super-<comma>", lazy.layout.grow(),
-        desc = "Grow window"
-    ),
-    EzKey(
-        "Super-<period>", lazy.layout.shrink(),
-        desc = "Shrink window"
-    ),
-    EzKey(
-        "Super-n", lazy.layout.normalize(),
-        desc = "Reset all window sizes"
-    ),
+    EzKey("Super-<comma>", lazy.layout.grow()), # Grow window
+    EzKey("Super-<period>", lazy.layout.shrink()), # Shrink window
 
-    # Launch applications:
-    EzKey(
-        "Super-<space>", lazy.spawn("rofi -show drun -display-drun Search"),
-        desc = "Launch launcher"
-    ),
-    EzKey(
-        "Super-<Return>", lazy.spawn(terminal),
-        desc = "Launch terminal"
-    ),
-    EzKey(
-        "Super-b", lazy.spawn(browser),
-        desc = "Launch browser"
-    ),
-    EzKey(
-        "Super-f", lazy.spawn(file_explorer),
-        desc = "Launch file explorer"
-    ),
-    EzKey(
-        "Super-s", lazy.spawn(spotify),
-        desc = "Launch Spotify"
-    ),
-    EzKey(
-        "Super-c", lazy.spawn(editor),
-        desc = "Launch code editor"
-    ),
-    
+    # Applications:
+    KeyChord([mod], "a", [
+        Key([], "b", lazy.spawn(apps["browser"])), # Launch browser
+        Key([], "f", lazy.spawn(apps["file_explorer"])), # Launch file explorer
+        Key([], "c", lazy.spawn(apps["editor"])), # Launch editor
+        Key([], "s", lazy.spawn(apps["music_player"])) # Launch music player
+    ]),
+    EzKey("Super-<Return>", lazy.spawn(apps["terminal"])), # Launch terminal
+
+    # Rofi scripts:
+    KeyChord([mod], "space", [
+        Key([], "a", lazy.spawn("rofi -show drun -display-drun Search")), # App menu
+        Key([], "n", lazy.spawn("bash ./.config/rofi/scripts/rofi-wifi-menu.sh")), # Wi-Fi manu
+        Key([], "p", lazy.spawn("rofi -show power-menu -modi power-menu:~/.config/rofi/scripts/rofi-power-menu")), # Power menu
+        Key([], "s", lazy.spawn("bash ./.config/rofi/scripts/scrotmenu.sh")), # Screenshot menu
+    ]),
+
     # Bar visibiliy:
-    EzKey(
-        "Super-Shift-b", lazy.hide_show_bar(position="all"),
-        desc = "Toggle bar visibility"
-    ),
-    
+    EzKey("Super-Shift-b", lazy.hide_show_bar()), # Hide bar
+
     # Volume controls:
-    EzKey(
-        "Super-<F5>", lazy.spawn("amixer sset Master toggle"),
-        desc = "Toggle mute"
-    ),
-    EzKey(
-        "Super-<F7>", lazy.spawn("amixer -c 0 -q set Master 1dB-"),
-        desc = "Lower volume"
-    ),
-    EzKey(
-         "Super-<F8>", lazy.spawn("amixer -c 0 -q set Master 1dB+"),
-        desc = "Raise volume"
-    ),
+    EzKey("Super-<F5>", lazy.spawn("amixer sset Master toggle")), # Toggle volume
+    EzKey("Super-<F7>", lazy.spawn("amixer -c 0 -q set Master 1dB-")), # Volume down
+    EzKey("Super-<F8>", lazy.spawn("amixer -c 0 -q set Master 1dB+")), # Volume up
 
     # Spotify controls:
-    EzKey(
-        "Super-<F11>", lazy.spawn("spotifycli --playpause"),
-        desc = "Toggle pause"
-    ),
-    EzKey(
-        "Super-<F10>", lazy.spawn("spotifycli --prev"),
-        desc = "Play previous track"
-    ),
-    EzKey(
-        "Super-<F12>", lazy.spawn("spotifycli --next"),
-        desc = "Play next track"
-    ),
+    EzKey("Super-<F11>", lazy.spawn("spotifycli --playpause")), # Music toggle
+    EzKey("Super-<F10>", lazy.spawn("spotifycli --prev")), # Music previous
+    EzKey("Super-<F12>", lazy.spawn("spotifycli --next")), # Music next
 
     # Control Qtile:
-    EzKey(
-    "Super-Control-<Tab>", lazy.next_layout(),
-    desc = "Switch layouts"
-    ),
-    EzKey(
-        "Super-Shift-q", lazy.window.kill(),
-        desc = "Kill focused window"
-    ),
-    EzKey(
-        "Super-r", lazy.restart(),
-        desc = "Restart Qtile"
-    ),
-    EzKey(
-        "Super-Shift-l", lazy.shutdown(),
-        desc = "Shutdown Qtile"
-    ),
+    EzKey("Super-Control-<Tab>", lazy.next_layout()), # Switch layouts
+    EzKey("Super-<Tab>", lazy.layout.next()), # Switch focus
+    EzKey("Super-Shift-q", lazy.window.kill()), # Kill window
+    EzKey("Super-r", lazy.restart()), # Restart qtile
 ]
 
 # Workspaces:
@@ -199,16 +116,10 @@ groups = [Group(i) for i in "123456789"]
 for i in groups:
     keys.extend([
         # Switch to group:
-        EzKey(
-            "Super-" + i.name, lazy.group[i.name].toscreen(),
-            desc = "Switch to group {}".format(i.name)
-        ),
+        EzKey("Super-" + i.name, lazy.group[i.name].toscreen()),
 
         # Switch & move to group:
-        EzKey(
-            "Super-Shift-" + i.name, lazy.window.togroup(i.name, switch_group=True),
-            desc = "Switch to & move focused window to group {}".format(i.name)
-        ),
+        EzKey("Super-Shift-" + i.name, lazy.window.togroup(i.name, switch_group=True)),
     ])
 
 # Layout theme:
@@ -217,8 +128,8 @@ layout_theme = {
     "single_margin": inner_gap,
     "border_width": border_width,
     "single_border_width": border_width,
-    "border_focus": colors[17],
-    "border_normal": colors[18],
+    "border_focus": colors[8][0],
+    "border_normal": colors[8][1],
     "new_client_position": "bottom",
     "change_size": 80,
     "change_ratio": .04,
@@ -229,7 +140,12 @@ layout_theme = {
 layouts = [
     layout.MonadTall(**layout_theme),
     # layout.MonadWide(**layout_theme),
-    layout.Max(),
+    CustomMax(
+        # margin = inner_gap,
+        border_width = border_width,
+        border_focus = colors[8][0],
+        border_normal = colors[8][1]
+    ),
 ]
 
 floating_layout = layout.Floating(
@@ -243,8 +159,8 @@ floating_layout = layout.Floating(
         Match(title='pinentry'),  # GPG key password entry
     ],
     border_width = border_width,
-    border_focus = colors[17],
-    border_normal = colors[18],
+    border_focus = colors[8][0],
+    border_normal = colors[8][1],
 )
 
 # Default bar settings:
@@ -255,140 +171,106 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+# Separator function:
+def separate(foreground, background):
+    return widget.TextBox(
+        text = "\ue0ba",
+        font = "Inconsolata for powerline",
+        fontsize = 45,
+        background = background,
+        foreground = foreground
+    )
+
 # Bar widgets:
 screens = [
     Screen(
         bottom = bar.Bar(
-            [   
+            [
                 # Current group widget:
                 widget.AGroupBox(
                     borderwidth = 0,
                     mouse_callbacks = {
+                        "Button1": lambda: qtile.cmd_spawn("rofi -show drun -display-drun Search"),
                         "Button4": lambda: qtile.current_screen.cmd_next_group(),
                         "Button5": lambda: qtile.current_screen.cmd_prev_group()
                     },
-                    foreground = colors[11],
-                    background = colors[12],
-                    margin_x = 20
+                    foreground = colors[7][0],
+                    background = colors[7][1],
+                    margin_x = 18
                 ),
-                widget.TextBox(
-                    text = "\ue0ba", 
-                    font = "Inconsolata for powerline", 
-                    fontsize = 45,
-                    foreground = colors[0],
-                    background = colors[12]
-                ),
+                separate(colors[0][1], colors[7][1]),
+                # Window name widget:
                 widget.WindowName(
                     format = "{name}",
+                    foreground = colors[0][0],
+                    background = colors[0][1],
                     padding = 10
                 ),
+                separate(colors[6][1], colors[0][1]),
                 # Spotify widget:
-                widget.TextBox(
-                    text = "\ue0ba",
-                    font = "Inconsolata for powerline", 
-                    fontsize = 45,
-                    foreground = colors[12],
-                    background = colors[0]
-                ),
                 widget.Mpris2(
                     name = "spotify",
                     objname = "org.mpris.MediaPlayer2.spotify",
                     display_metadata = ["xesam:artist", "xesam:title"],
-                    max_chars = 45,
-                    scroll_chars = None,
+                    max_chars = 35,
+                    scroll_chars = 0,
                     stop_pause_text = None,
                     mouse_callbacks = {
                         "Button1": lambda: qtile.cmd_spawn("spotifycli --playpause"),
                         "Button4": lambda: qtile.cmd_spawn("spotifycli --next"),
                         "Button5": lambda: qtile.cmd_spawn("spotifycli --prev")
                     },
-                    foreground = colors[11],
-                    background = colors[12],
+                    foreground = colors[6][0],
+                    background = colors[6][1],
                     padding = widget_padding
                 ),
-                # widget.TextBox(
-                #     text = "\ue0ba", 
-                #     font = "Inconsolata for powerline", 
-                #     fontsize = 45,
-                #     foreground = colors[10],
-                #     background = colors[12]
-                # ),
-                # Pomodoro widget:
-                # widget.Pomodoro(
-                #     prefix_break = "Break: ",
-                #     prefix_long_break = "Long break: ",
-                #     prefix_paused = "Paused",
-                #     prefix_inactive = "Pomodoro",
-                #     color_active = colors[9],
-                #     color_break = colors[9],
-                #     color_inactive = colors[9],
-                #     foreground = colors[9],
-                #     background = colors[10],
-                #     padding = widget_padding
-                # ),
-                widget.TextBox(
-                    text = "\ue0ba", 
-                    font = "Inconsolata for powerline", 
-                    fontsize = 45,
-                    foreground = colors[8],
-                    background = colors[12]
+                separate(colors[5][1], colors[6][1]),
+                widget.Memory(
+                    format = "MEM {MemPercent}%",
+                    foreground = colors[5][0],
+                    background = colors[5][1],
+                    padding = widget_padding
                 ),
+                separate(colors[4][1], colors[5][1]),
                 # Volume widget:
                 widget.Volume(
-                    fmt = "Vol: {}", 
-                    foreground = colors[7], 
-                    background = colors[8],
+                    fmt = "VOL {}",
+                    foreground = colors[4][0],
+                    background = colors[4][1],
                     padding = widget_padding
                 ),
+                separate(colors[3][1], colors[4][1]),
+                # Battery widget:
                 widget.TextBox(
-                    text = "\ue0ba", 
-                    font = "Inconsolata for powerline", 
-                    fontsize = 45,
-                    foreground = colors[6],
-                    background = colors[8]
+                    text = "BAT 98.3%",
+                    # format = "{percent:2.0%}",
+                    # fmt = "BAT {}",
+                    foreground = colors[3][0],
+                    background = colors[3][1],
+                    padding = widget_padding
                 ),
+                separate(colors[2][1], colors[3][1]),
                 # Date widget:
                 widget.Clock(
-                    format = "%A, %B %d", 
-                    foreground = colors[5], 
-                    background = colors[6],
+                    format = "%A, %B %d",
+                    foreground = colors[2][0],
+                    background = colors[2][1],
                     padding = widget_padding
-                ), 
-                widget.TextBox(
-                    text = "\ue0ba", 
-                    font = "Inconsolata for powerline", 
-                    fontsize = 45,
-                    foreground = colors[4],
-                    background = colors[6],
                 ),
+                separate(colors[1][1], colors[2][1]),
                 # Time widget:
                 widget.Clock(
-                    format = "%I:%M %p", 
-                    foreground = colors[3], 
-                    background = colors[4],
+                    format = "%I:%M %p",
+                    foreground = colors[1][0],
+                    background = colors[1][1],
                     padding = widget_padding
                 ),
-                widget.TextBox(
-                    text = "\ue0ba", 
-                    font = "Inconsolata for powerline", 
-                    fontsize = 45,
-                    foreground = colors[2],
-                    background = colors[4],
-                ),
-                # Power widget:
-                widget.QuickExit(
-                    default_text = "Log out",
-                    countdown_format = "{} sec..",
-                    countdown_start = 6,
-                    foreground = colors[1],
-                    background = colors[2],
-                    padding = widget_padding
-                ),
-            ], 48, background=colors[0], margin=[inner_gap, 0, 0, 0]
+            ], 48, background=colors[0], margin=[outer_gap - inner_gap, 0, 0, 0]
+            # ], 48, background=colors[0], margin=[0, 0, 0, 0]
         ),
-        left=bar.Gap(inner_gap),
-        right=bar.Gap(inner_gap),
-        top=bar.Gap(inner_gap),
+        left=bar.Gap(outer_gap - inner_gap),
+        right=bar.Gap(outer_gap - inner_gap),
+        top=bar.Gap(outer_gap - inner_gap),
     ),
 ]
 
