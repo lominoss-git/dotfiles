@@ -8,7 +8,7 @@ A collection of config files.
 ![Rofi](https://user-images.githubusercontent.com/79030093/133771213-f1d485e9-d0a7-46f7-9558-f92e10b3724d.png)
 
 # Terminal: [Termite](https://github.com/thestinger/termite)
-![Termite](https://user-images.githubusercontent.com/79030093/133771245-78d82811-4ff0-4844-a283-7fad126a198a.png)
+![2022-02-08-181041_1460x1085_scrot](https://user-images.githubusercontent.com/79030093/153039308-e1e29d79-64b6-4fff-8f4d-7940709c8d41.png)
 
 # Terminal Code Editor: [Micro](https://github.com/zyedidia/micro)
 ![Micro](https://user-images.githubusercontent.com/79030093/133771258-0533a358-e1d6-494c-b0ed-3df29d093d92.png)
