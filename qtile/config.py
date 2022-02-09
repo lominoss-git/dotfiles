@@ -36,7 +36,7 @@ colors = [
 
 # Window decorations:
 border_width = 4
-inner_gap = 14
+inner_gap = 12
 outer_gap = 30
 widget_padding = 18
 
