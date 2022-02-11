@@ -9,7 +9,7 @@ end
 ## PROMPT ##
 function fish_prompt
     echo -e (pwd | sed "s=$HOME=~=g")
-    echo -e '\033[1m→\033[0m '
+    echo -e '\033[1m>\033[0m '
 end
 ## END OF PROMPT ##
 
