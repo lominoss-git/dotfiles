@@ -1,4 +1,3 @@
-
 set fish_greeting
 set PATH /home/lominoss/.flutter/flutter/bin $PATH
 
