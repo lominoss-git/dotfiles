@@ -2,14 +2,15 @@
 set fish_greeting
 set PATH /home/lominoss/.flutter/flutter/bin $PATH
 
+set MICRO_TRUECOLOR 1
+
 if set -q VIRTUAL_ENV
     echo -n
 end
 
 ## PROMPT ##
 function fish_prompt
-    echo -e (pwd | sed "s=$HOME=~=g")
-    echo -e '\033[1m>\033[0m '
+    echo -e '\033[1m\033[0m '(pwd | sed "s=$HOME=~=g") '\033[1m \033[4m'(command git symbolic-ref HEAD 2> /dev/null | sed -e 's|^refs/heads/||')'\033[0m' '\033[1m→\033[0m '
 end
 ## END OF PROMPT ##
 
