@@ -22,16 +22,16 @@ from custom_max import CustomMax
 # Color scheme:
 colors = [
     # Bar colors:
-    ["#E5E9F0", "#2E3440"], # Background
-    ["#2E3440", "#E5E9F0"], # Time
-    ["#2E3440", "#D8DEE9"], # Date
-    ["#2E3440", "#E5E9F0"], # Battery
-    ["#2E3440", "#D8DEE9"], # Volume
-    ["#2E3440", "#E5E9F0"], # Memory
-    ["#2E3440", "#D8DEE9"], # Spotify
-    ["#2E3440", "#E5E9F0"], # Workspace
+    ["#E5E9F0", "#2E3440"],  # Background
+    ["#2E3440", "#E5E9F0"],  # Time
+    ["#2E3440", "#D8DEE9"],  # Date
+    ["#2E3440", "#E5E9F0"],  # Battery
+    ["#2E3440", "#D8DEE9"],  # Volume
+    ["#2E3440", "#E5E9F0"],  # Memory
+    ["#2E3440", "#D8DEE9"],  # Spotify
+    ["#2E3440", "#E5E9F0"],  # Workspace
     # Window decorations:
-    ["#D8DEE9", "#434C5E"], # Borders
+    ["#D8DEE9", "#434C5E"],  # Borders
 ]
 
 # Window decorations:
@@ -62,35 +62,36 @@ EzKey.modifier_keys = {
 # Keybindings:
 keys = [
     # Move windows:
-    EzKey("Super-Shift-<Left>", lazy.layout.shuffle_left()), # Move left
-    EzKey("Super-Shift-<Right>", lazy.layout.shuffle_right()), # Move right
-    EzKey("Super-Shift-<Down>", lazy.layout.shuffle_down()), # Move down
-    EzKey("Super-Shift-<Up>", lazy.layout.shuffle_up()), # Move Up
-    EzKey("Super-Shift-f", lazy.layout.flip()), # Flip layout
+    EzKey("Super-Shift-<Left>", lazy.layout.shuffle_left()),  # Move left
+    EzKey("Super-Shift-<Right>", lazy.layout.shuffle_right()),  # Move right
+    EzKey("Super-Shift-<Down>", lazy.layout.shuffle_down()),  # Move down
+    EzKey("Super-Shift-<Up>", lazy.layout.shuffle_up()),  # Move Up
+    EzKey("Super-Shift-f", lazy.layout.flip()),  # Flip layout
 
     # Resize windows:
-    EzKey("Super-<comma>", lazy.layout.grow()), # Grow window
-    EzKey("Super-<period>", lazy.layout.shrink()), # Shrink window
+    EzKey("Super-<equal>", lazy.layout.grow()),  # Grow window
+    EzKey("Super-<minus>", lazy.layout.shrink()),  # Shrink window
 
     # Applications:
     KeyChord([mod], "a", [
-        Key([], "b", lazy.spawn(apps["browser"])), # Launch browser
-        Key([], "f", lazy.spawn(apps["file_explorer"])), # Launch file explorer
-        Key([], "c", lazy.spawn(apps["editor"])), # Launch editor
-        Key([], "s", lazy.spawn(apps["music_player"])) # Launch music player
+        Key([], "b", lazy.spawn(apps["browser"])),  # Launch browser
+        Key([], "f", lazy.spawn(apps["file_explorer"])),  # Launch file explorer
+        Key([], "c", lazy.spawn(apps["editor"])),  # Launch editor
+        Key([], "s", lazy.spawn(apps["music_player"])),  # Launch music player
     ]),
-    EzKey("Super-<Return>", lazy.spawn(apps["terminal"])), # Launch terminal
+    EzKey("Super-<Return>", lazy.spawn(apps["terminal"])),  # Launch terminal
 
     # Rofi scripts:
     KeyChord([mod], "space", [
-        Key([], "a", lazy.spawn("rofi -show drun -display-drun Search")), # App menu
-        Key([], "n", lazy.spawn("bash ./.config/rofi/scripts/rofi-wifi-menu.sh")), # Wi-Fi manu
-        Key([], "p", lazy.spawn("rofi -show power-menu -modi power-menu:~/.config/rofi/scripts/rofi-power-menu")), # Power menu
-        Key([], "s", lazy.spawn("bash ./.config/rofi/scripts/scrotmenu.sh")), # Screenshot menu
+        Key([], "a", lazy.spawn("rofi -show drun -display-drun Search")),  # App menu
+        Key([], "n", lazy.spawn("bash ./.config/rofi/scripts/rofi-wifi-menu.sh")),  # Wi-Fi manu
+        Key([], "p", lazy.spawn(  # Power menu
+            "rofi -show power-menu -modi power-menu:~/.config/rofi/scripts/rofi-power-menu")),
+        Key([], "s", lazy.spawn("bash ./.config/rofi/scripts/scrotmenu.sh")),  # Screenshot menu
     ]),
 
-    # Bar visibiliy:
-    EzKey("Super-Shift-b", lazy.hide_show_bar()), # Hide bar
+    # Fullscreen:
+    EzKey("Super-f", lazy.window.toggle_fullscreen()),  # Toggle fullscreen
 
     # Volume controls:
     EzKey("Super-<F5>", lazy.spawn("amixer sset Master toggle")), # Toggle volume
@@ -98,15 +99,18 @@ keys = [
     EzKey("Super-<F8>", lazy.spawn("amixer -c 0 -q set Master 1dB+")), # Volume up
 
     # Spotify controls:
-    EzKey("Super-<F11>", lazy.spawn("spotifycli --playpause")), # Music toggle
-    EzKey("Super-<F10>", lazy.spawn("spotifycli --prev")), # Music previous
-    EzKey("Super-<F12>", lazy.spawn("spotifycli --next")), # Music next
+    EzKey("Super-<F11>", lazy.spawn("spotifycli --playpause")),  # Music toggle
+    EzKey("Super-<F10>", lazy.spawn("spotifycli --prev")),  # Music previous
+    EzKey("Super-<F12>", lazy.spawn("spotifycli --next")),  # Music next
 
     # Control Qtile:
-    EzKey("Super-Control-<Tab>", lazy.next_layout()), # Switch layouts
-    EzKey("Super-<Tab>", lazy.layout.next()), # Switch focus
-    EzKey("Super-Shift-q", lazy.window.kill()), # Kill window
-    EzKey("Super-r", lazy.restart()), # Restart qtile
+    EzKey("Super-Control-<Tab>", lazy.next_layout()),  # Switch layouts
+    EzKey("Super-<Tab>", lazy.layout.next()),  # Switch focus
+    EzKey("Super-Shift-<Tab>", lazy.layout.previous()),  # Switch focus
+    EzKey("Super-Shift-q", lazy.window.kill()),  # Kill window
+    EzKey("Super-r", lazy.restart()),  # Restart qtile
+
+    EzKey("Super-<Escape>", lazy.spawn("slock")),  # Lock screen
 ]
 
 # Workspaces:
@@ -119,7 +123,11 @@ for i in groups:
         EzKey("Super-" + i.name, lazy.group[i.name].toscreen()),
 
         # Switch & move to group:
-        EzKey("Super-Shift-" + i.name, lazy.window.togroup(i.name, switch_group=True)),
+        EzKey(
+            "Super-Shift-" + i.name,
+            lazy.window.togroup(
+                i.name,
+                switch_group=True)),
     ])
 
 # Layout theme:
@@ -142,9 +150,9 @@ layouts = [
     # layout.MonadWide(**layout_theme),
     CustomMax(
         # margin = inner_gap,
-        border_width = border_width,
-        border_focus = colors[8][0],
-        border_normal = colors[8][1]
+        border_width=border_width,
+        border_focus=colors[8][0],
+        border_normal=colors[8][1]
     ),
 ]
 
@@ -158,112 +166,115 @@ floating_layout = layout.Floating(
         Match(title='branchdialog'),  # gitk
         Match(title='pinentry'),  # GPG key password entry
     ],
-    border_width = border_width,
-    border_focus = colors[8][0],
-    border_normal = colors[8][1],
+    border_width=border_width,
+    border_focus=colors[8][0],
+    border_normal=colors[8][1],
 )
 
 # Default bar settings:
 widget_defaults = dict(
-    font = "Fira Mono",
-    fontsize = 16,
-    padding = 0,
+    font="Fira Mono",
+    fontsize=16,
+    padding=0,
 )
 extension_defaults = widget_defaults.copy()
 
 # Separator function:
+
+
 def separate(foreground, background):
     return widget.TextBox(
-        text = "\ue0ba",
-        font = "Inconsolata for powerline",
-        fontsize = 45,
-        background = background,
-        foreground = foreground
+        text="\ue0ba",
+        font="Inconsolata for powerline",
+        fontsize=45,
+        background=background,
+        foreground=foreground
     )
+
 
 # Bar widgets:
 screens = [
     Screen(
-        bottom = bar.Bar(
+        bottom=bar.Bar(
             [
                 # Current group widget:
                 widget.AGroupBox(
-                    borderwidth = 0,
-                    mouse_callbacks = {
+                    borderwidth=0,
+                    mouse_callbacks={
                         "Button1": lambda: qtile.cmd_spawn("rofi -show drun -display-drun Search"),
                         "Button4": lambda: qtile.current_screen.cmd_next_group(),
                         "Button5": lambda: qtile.current_screen.cmd_prev_group()
                     },
-                    foreground = colors[7][0],
-                    background = colors[7][1],
-                    margin_x = 18
+                    foreground=colors[7][0],
+                    background=colors[7][1],
+                    margin_x=18
                 ),
                 separate(colors[0][1], colors[7][1]),
                 # Window name widget:
                 widget.WindowName(
-                    format = "{name}",
-                    foreground = colors[0][0],
-                    background = colors[0][1],
-                    padding = 10
+                    format="{name}",
+                    foreground=colors[0][0],
+                    background=colors[0][1],
+                    padding=10
                 ),
                 separate(colors[6][1], colors[0][1]),
                 # Spotify widget:
                 widget.Mpris2(
-                    name = "spotify",
-                    objname = "org.mpris.MediaPlayer2.spotify",
-                    display_metadata = ["xesam:artist", "xesam:title"],
-                    max_chars = 35,
-                    scroll_chars = 0,
-                    stop_pause_text = None,
-                    mouse_callbacks = {
+                    name="spotify",
+                    objname="org.mpris.MediaPlayer2.spotify",
+                    display_metadata=["xesam:artist", "xesam:title"],
+                    max_chars=40,
+                    scroll_chars=0,
+                    stop_pause_text=None,
+                    mouse_callbacks={
                         "Button1": lambda: qtile.cmd_spawn("spotifycli --playpause"),
                         "Button4": lambda: qtile.cmd_spawn("spotifycli --next"),
                         "Button5": lambda: qtile.cmd_spawn("spotifycli --prev")
                     },
-                    foreground = colors[6][0],
-                    background = colors[6][1],
-                    padding = widget_padding
+                    foreground=colors[6][0],
+                    background=colors[6][1],
+                    padding=widget_padding
                 ),
                 separate(colors[5][1], colors[6][1]),
                 widget.Memory(
-                    format = "MEM {MemPercent}%",
-                    foreground = colors[5][0],
-                    background = colors[5][1],
-                    padding = widget_padding
+                    format="MEM {MemPercent}%",
+                    foreground=colors[5][0],
+                    background=colors[5][1],
+                    padding=widget_padding
                 ),
                 separate(colors[4][1], colors[5][1]),
                 # Volume widget:
                 widget.Volume(
-                    fmt = "VOL {}",
-                    foreground = colors[4][0],
-                    background = colors[4][1],
-                    padding = widget_padding
+                    fmt="VOL {}",
+                    foreground=colors[4][0],
+                    background=colors[4][1],
+                    padding=widget_padding
                 ),
                 separate(colors[3][1], colors[4][1]),
                 # Battery widget:
                 widget.TextBox(
-                    text = "BAT 98.3%",
+                    text="BAT 98.3%",
                     # format = "{percent:2.0%}",
                     # fmt = "BAT {}",
-                    foreground = colors[3][0],
-                    background = colors[3][1],
-                    padding = widget_padding
+                    foreground=colors[3][0],
+                    background=colors[3][1],
+                    padding=widget_padding
                 ),
                 separate(colors[2][1], colors[3][1]),
                 # Date widget:
                 widget.Clock(
-                    format = "%A, %B %d",
-                    foreground = colors[2][0],
-                    background = colors[2][1],
-                    padding = widget_padding
+                    format="%A, %B %d",
+                    foreground=colors[2][0],
+                    background=colors[2][1],
+                    padding=widget_padding
                 ),
                 separate(colors[1][1], colors[2][1]),
                 # Time widget:
                 widget.Clock(
-                    format = "%I:%M %p",
-                    foreground = colors[1][0],
-                    background = colors[1][1],
-                    padding = widget_padding
+                    format="%I:%M %p",
+                    foreground=colors[1][0],
+                    background=colors[1][1],
+                    padding=widget_padding
                 ),
             ], 48, background=colors[0], margin=[outer_gap - inner_gap, 0, 0, 0]
             # ], 48, background=colors[0], margin=[0, 0, 0, 0]
@@ -284,11 +295,11 @@ mouse = [
     ),
     Drag(
         [mod, "shift"], "Button1", lazy.window.set_position_floating(),
-        start = lazy.window.get_position()
+        start=lazy.window.get_position()
     ),
     Drag(
         [mod, "shift"], "Button3", lazy.window.set_size_floating(),
-        start = lazy.window.get_size()
+        start=lazy.window.get_size()
     )
 ]
 
