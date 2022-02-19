@@ -31,6 +31,7 @@ colors = [
     ["#2E3440", "#D8DEE9"],  # Spotify
     ["#2E3440", "#E5E9F0"],  # Workspace
     # Window decorations:
+    # [("#2E3440", "#D8DEE9"), ("#2E3440", "#434C5E")],  # Double Borders
     ["#D8DEE9", "#434C5E"],  # Borders
 ]
 
@@ -42,7 +43,7 @@ widget_padding = 18
 
 # Preffered applications:
 apps = {
-    "terminal": "termite",
+    "terminal": "xfce4-terminal",
     "browser": "firefox",
     "file_explorer": "thunar",
     "editor": "termite -e micro",
@@ -61,12 +62,20 @@ EzKey.modifier_keys = {
 
 # Keybindings:
 keys = [
+    # Focus:
+    EzKey("Super-<Left>", lazy.layout.left()),  # Focus left
+    EzKey("Super-<Right>", lazy.layout.right()),  # Focus right
+    EzKey("Super-<Down>", lazy.layout.down()),  # Focus down
+    EzKey("Super-<Up>", lazy.layout.up()),  # Focus Up
+    EzKey("Super-<Tab>", lazy.layout.next()),  # Switch focus
+    EzKey("Super-Shift-<Tab>", lazy.layout.previous()),  # Switch focus
+
     # Move windows:
-    EzKey("Super-Shift-<Left>", lazy.layout.shuffle_left()),  # Move left
-    EzKey("Super-Shift-<Right>", lazy.layout.shuffle_right()),  # Move right
-    EzKey("Super-Shift-<Down>", lazy.layout.shuffle_down()),  # Move down
-    EzKey("Super-Shift-<Up>", lazy.layout.shuffle_up()),  # Move Up
-    EzKey("Super-Shift-f", lazy.layout.flip()),  # Flip layout
+    EzKey("Super-Shift-<Left>", lazy.layout.shuffle_left().when(layout="monadtall")),  # Move left
+    EzKey("Super-Shift-<Right>", lazy.layout.shuffle_right().when(layout="monadtall")),  # Move right
+    EzKey("Super-Shift-<Down>", lazy.layout.shuffle_down().when(layout="monadtall")),  # Move down
+    EzKey("Super-Shift-<Up>", lazy.layout.shuffle_up().when(layout="monadtall")),  # Move Up
+    EzKey("Super-Shift-f", lazy.layout.flip().when(layout="monadtall")),  # Flip layout
 
     # Resize windows:
     EzKey("Super-<equal>", lazy.layout.grow()),  # Grow window
@@ -105,8 +114,6 @@ keys = [
 
     # Control Qtile:
     EzKey("Super-Control-<Tab>", lazy.next_layout()),  # Switch layouts
-    EzKey("Super-<Tab>", lazy.layout.next()),  # Switch focus
-    EzKey("Super-Shift-<Tab>", lazy.layout.previous()),  # Switch focus
     EzKey("Super-Shift-q", lazy.window.kill()),  # Kill window
     EzKey("Super-r", lazy.restart()),  # Restart qtile
 
@@ -138,15 +145,17 @@ layout_theme = {
     "single_border_width": border_width,
     "border_focus": colors[8][0],
     "border_normal": colors[8][1],
-    "new_client_position": "bottom",
-    "change_size": 80,
-    "change_ratio": .04,
-    "ratio": .4965,
 }
 
 # Tiling layouts:
 layouts = [
-    layout.MonadTall(**layout_theme),
+    layout.MonadTall(
+        **layout_theme,
+        new_client_position="bottom",
+        change_size=80,
+        change_ratio=.04,
+        ratio=.4965,
+    ),
     # layout.MonadWide(**layout_theme),
     CustomMax(
         # margin = inner_gap,
