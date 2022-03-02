@@ -1,0 +1,13 @@
+{
+    "autosu": true,
+    "basename": true,
+    "colorscheme": "nord",
+    "hlsearch": true,
+    "indentchar": "\u003e",
+    "infobar": false,
+    "rmtrailingws": true,
+    "savecursor": true,
+    "statusformatl": " INSERT \u003e $(filename) $(modified)\u003e ft:$(opt:filetype) \u003e",
+    "statusformatr": "\u003c $(opt:encoding) \u003c $(opt:fileformat) \u003c $(line):$(col) ",
+    "wordwrap": true
+}
