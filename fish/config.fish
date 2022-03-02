@@ -1,17 +1,49 @@
-
 set fish_greeting
-set PATH /home/lominoss/.flutter/flutter/bin $PATH
 
 set MICRO_TRUECOLOR 1
 
-if set -q VIRTUAL_ENV
-    echo -n
-end
-
 ## PROMPT ##
 function fish_prompt
-    echo -e '\033[1m\033[0m '(pwd | sed "s=$HOME=~=g") '\033[1m \033[0m'(command git symbolic-ref HEAD 2> /dev/null | sed -e 's|^refs/heads/||')'\033[0m'
-    echo -e "\033[1m→ \033[0m"
+    set -l last_status $status
+    set -l cwd (prompt_pwd)
+    set -l duration (math $CMD_DURATION/1000)
+
+    if not test $last_status -eq 0
+        set_color --bold white -b red
+        echo -n ' '$last_status' '
+        set_color normal
+    end
+
+    # Display current path
+    set_color --bold 2E3440 -b ECEFF4
+    echo -n "  $cwd "
+
+    if set -q VIRTUAL_ENV
+        echo -n -s (set_color --bold white -b 5E81AC) "  " (basename "$VIRTUAL_ENV") " " (set_color normal)
+    end
+
+    # Show git branch and dirty state
+    set -l git_branch (command git symbolic-ref HEAD 2> /dev/null | sed -e 's|^refs/heads/||')
+    set -l git_dirty (command git status -s --ignore-submodules=dirty 2> /dev/null)
+    if test -n "$git_branch"
+        if test -n "$git_dirty"
+            set_color --bold 2E3440 -b yellow
+            echo -n "  $git_branch "
+        else
+            set_color --bold 2E3440 -b green
+            echo -n "  $git_branch "
+        end
+    end
+
+    if not test $CMD_DURATION = "0"
+        set_color --bold white -b 4c566a
+        echo -n ' '$duration's '
+        set_color normal
+    end
+
+    # Add a space
+    set_color normal
+    echo -n ' '
 end
 ## END OF PROMPT ##
 
