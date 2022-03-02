@@ -189,8 +189,6 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 # Separator function:
-
-
 def separate(foreground, background):
     return widget.TextBox(
         text="\ue0ba",
@@ -199,7 +197,6 @@ def separate(foreground, background):
         background=background,
         foreground=foreground
     )
-
 
 # Bar widgets:
 screens = [
